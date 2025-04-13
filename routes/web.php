@@ -37,7 +37,6 @@ Route::middleware(['auth', 'user.active'])->group(function () {
     // User dashboard
     Route::group(['as' => 'user.', 'prefix' => 'user'], function () {
 
-
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/verify-user', [VerificationController::class, 'verifyUser'])->name('verify-user');
 
