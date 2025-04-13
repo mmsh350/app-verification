@@ -18,7 +18,7 @@ class ClaimCountFactory extends Factory
     {
         return [
 
-            'transaction_count' => '100',
+            'transaction_count' => '5',
         ];
     }
 }
