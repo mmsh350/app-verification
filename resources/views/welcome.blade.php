@@ -8,7 +8,7 @@
                 <!-- Left Side: Text Content -->
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <div class="hero-text">
-                        <h2>AA TASKAR BEGE VERIFICATION</h2>
+                        <h2>USSEY TECH VERIFICATION</h2>
                         <p>Your #1 for instant NIN and BVN verification, Airtime and Data,
                             Cable subscription and educational PIN.
                             Register now and enjoy the amazing services we offer!
@@ -177,7 +177,7 @@
             </div>
             <!-- Right Side: Image -->
             <div class="col-lg-6 col-md-6 col-sm-12 text-center">
-                <img src="{{ asset('assets/index/img/icon/LOGO.jpg') }}" alt="AA Taskar Bege" class="img-fluid"
+                <img src="{{ asset('assets/images/large-logo.jpg') }}" alt="{{ $settings->short_name ?? config('app.name') }}" class="img-fluid"
                     style="max-width: 200%; height: 200px;">
             </div>
         </div>

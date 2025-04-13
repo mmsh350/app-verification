@@ -44,7 +44,7 @@ Route::middleware(['auth', 'user.active'])->group(function () {
 
             //Wallet
             Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
-              Route::get('claim-bonus/{id}', [WalletController::class, 'claimBonus'])->name('claim-bonus');
+            Route::get('claim-bonus/{id}', [WalletController::class, 'claimBonus'])->name('claim-bonus');
 
             //Transactions -----------------------------------------------------------------------------------------------------
             Route::get('/receipt/{referenceId}', [TransactionController::class, 'reciept'])->name('reciept');

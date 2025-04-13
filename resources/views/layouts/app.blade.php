@@ -11,7 +11,7 @@
     <meta name="keywords"
         content="identy - Your #1 for identity verification and BVN-related services, cable TV subscriptions (DSTV, GOTV, & STARTIMES), electricity bill payments, recharge card, and data printing.">
     <!-- SITE TITLE -->
-    <title>AA Taskar Bege</title>
+     <title>@yield('title', $settings->site_name ?? config('app.name'))</title>
     <!-- Latest Bootstrap min CSS -->
     <link rel="stylesheet" href="{{ asset('assets/index/bootstrap/css/bootstrap.min.css') }}">
     <!-- Bootstrap Icons -->
@@ -36,12 +36,9 @@
     <link rel="stylesheet" href="{{ asset('assets/index/css/style-three.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/index/css/style-three11.css') }}">
     <!-- Favicon -->
-    <link href="{{ asset('assets/index/img/icon/LOGO.jpg') }}" rel="icon" type="image">
-    <!-- HTML5 shim and Respond.js for IE8 support -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+     <link rel="shortcut icon"
+        href="{{ asset('assets/images/' . $settings->favicon ?? 'assets/images/default_favicon.png') }}">
+
 </head>
 
 <body data-spy="scroll" data-offset="80">
@@ -59,8 +56,8 @@
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
-            <img src="{{ asset('assets/index/img/icon/LOGO.jpg') }}" alt="AA TASKAR BEGE Logo" class="logo">
-            <h1>AA TASKAR BEGE</h1>
+            <img src="{{ asset('assets/images/logo.png') }}" alt="" class="logo"/>
+            <h1>USSEY TECH</h1>
         </div>
         <nav>
             <ul class="nav">
@@ -70,7 +67,7 @@
             </ul>
         </nav>
         <div class="home_btn">
-            <a href="#" class="btn btn-secondary">Register</a>
+            <a href="#" class="btn btn-dark">Register</a>
         </div>
     </header>
 
@@ -87,7 +84,7 @@
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            All Rights Reserved AA Taskar Bege.
+                            All Rights Reserved  {{ $settings->short_name ?? config('app.name') }}.
                         </a>
                     </p>
                     <p>
@@ -105,7 +102,7 @@
                             <li><a href="#" target="_blank"><i class="bi bi-twitter"></i></a></li>
                             <li><a href="#" target="_blank"><i class="bi bi-instagram"></i></a></li>
                             <li>
-                                <a href="https://wa.me/+2348030564012?text=Hello%20identy%20I%20Want%20To%20Know%20More%20About%20Your%20Platform.%20Please%20Help%20Me.%20Thank%20You.!"
+                                <a href="{{route('support')}}"
                                     target="_blank">
                                     <i class="bi bi-whatsapp"></i>
                                 </a>
