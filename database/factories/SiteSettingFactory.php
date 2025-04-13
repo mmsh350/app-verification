@@ -17,7 +17,7 @@ class SiteSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'site_name' => 'USSEY TECH',
+            'site_name' => 'Ussey Technology',
             'short_name' => 'USSEY TECH',
             'logo' => 'logo.png',
             'mini_logo' => 'mini-logo.png',
