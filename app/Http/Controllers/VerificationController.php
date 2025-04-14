@@ -594,4 +594,38 @@ class VerificationController extends Controller
             }
         }
     }
+    public function plasticBVN($bvnno)
+     {
+         //Services Fee
+         $ServiceFee = 0;
+         $ServiceFee = Service::where('service_code', '109')->first();
+         $ServiceFee = $ServiceFee->amount;
+ 
+         //Check if wallet is funded
+         $wallet = Wallet::where('user_id', $this->loginId)->first();
+         $wallet_balance = $wallet->balance;
+         $balance = 0;
+ 
+         if ($wallet_balance  < $ServiceFee) {
+             return response()->json([
+                 "message" => "Error",
+                 "errors" => array("Wallet Error" => "Sorry Wallet Not Sufficient for Transaction !")
+             ], 422);
+         } else {
+             $balance = $wallet->balance - $ServiceFee;
+ 
+             $affected = Wallet::where('user_id', $this->loginId)
+                 ->update(['balance' => $balance]);
+ 
+             $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+ 
+             $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'Plastic ID Card', $serviceDesc,  'Wallet', 'Approved');
+ 
+             //Generate PDF
+             $repObj = new BVN_PDF_Repository();
+             $response = $repObj->plasticPDF($bvnno);
+             return  $response;
+         }
+     }
+ }
 }
