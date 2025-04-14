@@ -50,15 +50,16 @@ class VerificationController extends Controller
     public function bvnVerify()
     {
         // Fetch all required service fees in one query
-        $serviceCodes = ['101', '102', '103'];
+        $serviceCodes = ['101', '102', '103', '109'];
         $services = Service::whereIn('service_code', $serviceCodes)->get()->keyBy('service_code');
 
         $BVNFee = $services->get('101') ?? 0.00;;
         $bvn_standard_fee = $services->get('102') ?? 0.00;
         $bvn_premium_fee = $services->get('103') ?? 0.00;
+        $bvn_plastic_fee = $services->get('109') ?? 0.00;
 
 
-        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
 
     private function createAccounts($userId)
@@ -114,7 +115,6 @@ class VerificationController extends Controller
 
             // Close cURL session
             curl_close($ch);
-
 
             $response = json_decode($response, true);
 
@@ -595,7 +595,7 @@ class VerificationController extends Controller
         }
     }
 
-     public function plasticBVN($bvnno)
+    public function plasticBVN($bvnno)
     {
         //Services Fee
         $ServiceFee = 0;
