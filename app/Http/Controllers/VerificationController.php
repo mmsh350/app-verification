@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\NIN_PDF_Repository;
+use App\Http\Repositories\BVN_PDF_Repository;
 use App\Http\Repositories\VirtualAccountRepository;
 use App\Http\Repositories\WalletRepository;
 use App\Models\Service;
