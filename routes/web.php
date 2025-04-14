@@ -59,6 +59,8 @@ Route::middleware(['auth', 'user.active'])->group(function () {
             //PDF Downloads -----------------------------------------------------------------------------------------------------
             Route::get('/standardBVN/{id}', [VerificationController::class, 'standardBVN'])->name("standardBVN");
             Route::get('/premiumBVN/{id}', [VerificationController::class, 'premiumBVN'])->name("premiumBVN");
+             Route::get('/plasticBVN/{id}', [VerificationController::class, 'plasticBVN'])->name("plasticBVN");
+            
             Route::get('/regularSlip/{id}', [VerificationController::class, 'regularSlip'])->name("regularSlip");
             Route::get('/standardSlip/{id}', [VerificationController::class, 'standardSlip'])->name("standardSlip");
             Route::get('/premiumSlip/{id}', [VerificationController::class, 'premiumSlip'])->name("premiumSlip");
