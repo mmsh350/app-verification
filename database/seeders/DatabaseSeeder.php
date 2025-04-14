@@ -6,6 +6,8 @@ use App\Models\ClaimCount;
 use App\Models\Service;
 use App\Models\SiteSetting;
 use App\Models\User;
+use Illuminate\Support\Str;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
