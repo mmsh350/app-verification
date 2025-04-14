@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Repositories\NIN_PDF_Repository;
+use App\Http\Repositories\BVN_PDF_Repository;
 use App\Http\Repositories\VirtualAccountRepository;
 use App\Http\Repositories\WalletRepository;
 use App\Models\Service;
@@ -49,15 +50,16 @@ class VerificationController extends Controller
     public function bvnVerify()
     {
         // Fetch all required service fees in one query
-        $serviceCodes = ['101', '102', '103'];
+        $serviceCodes = ['101', '102', '103', '109'];
         $services = Service::whereIn('service_code', $serviceCodes)->get()->keyBy('service_code');
 
         $BVNFee = $services->get('101') ?? 0.00;;
         $bvn_standard_fee = $services->get('102') ?? 0.00;
         $bvn_premium_fee = $services->get('103') ?? 0.00;
+        $bvn_plastic_fee = $services->get('109') ?? 0.00;
 
 
-        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
 
     private function createAccounts($userId)
@@ -113,7 +115,6 @@ class VerificationController extends Controller
 
             // Close cURL session
             curl_close($ch);
-
 
             $response = json_decode($response, true);
 
@@ -591,6 +592,40 @@ class VerificationController extends Controller
                     "errors" => array("Not Found" => "Verification record not found !")
                 ], 422);
             }
+        }
+    }
+
+    public function plasticBVN($bvnno)
+    {
+        //Services Fee
+        $ServiceFee = 0;
+        $ServiceFee = Service::where('service_code', '109')->first();
+        $ServiceFee = $ServiceFee->amount;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $this->loginId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance  < $ServiceFee) {
+            return response()->json([
+                "message" => "Error",
+                "errors" => array("Wallet Error" => "Sorry Wallet Not Sufficient for Transaction !")
+            ], 422);
+        } else {
+            $balance = $wallet->balance - $ServiceFee;
+
+            $affected = Wallet::where('user_id', $this->loginId)
+                ->update(['balance' => $balance]);
+
+            $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+            $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'Plastic ID Card', $serviceDesc,  'Wallet', 'Approved');
+
+            //Generate PDF
+            $repObj = new BVN_PDF_Repository();
+            $response = $repObj->plasticPDF($bvnno);
+            return  $response;
         }
     }
 }
