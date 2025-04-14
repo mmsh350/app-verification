@@ -62,11 +62,7 @@
 @section('content')
 
      <div class="email-container">
-        <!-- Email Header -->
-        <div class="email-header">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo">
-        </div>
-
+         
         <!-- Email Body -->
         <div class="email-body">
             <h2>Payment Notification</h2>
