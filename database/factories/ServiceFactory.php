@@ -113,7 +113,18 @@ class ServiceFactory extends Factory
                 'status' => 'enabled',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-            ]
+            ],
+            [
+                'service_code' => '109',
+                'name' => 'BVN Plastic ID',
+                'category' => 'Verifications',
+                'type' => 'Uncategorized',
+                'amount' => 200.00,
+                'description' => 'BVN Plastic ID FEE',
+                'status' => 'enabled',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ];
     }
 }
