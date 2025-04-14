@@ -33,7 +33,7 @@ class VerificationController extends Controller
     public function ninVerify()
     {
 
-        $serviceCodes = ['101', '102', '103', '109'];
+        $serviceCodes = ['104', '106', '107'];
         $services = Service::whereIn('service_code', $serviceCodes)
             ->get()
             ->keyBy('service_code');
@@ -42,23 +42,23 @@ class VerificationController extends Controller
         $ServiceFee = $services->get('104') ?? 0.00;
         $standard_nin_fee = $services->get('106') ?? 0.00;
         $premium_nin_fee = $services->get('107') ?? 0.00;
-        $bvn_plastic_fee = $services->get('109') ?? 0.00;
+      
 
-        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee'));
     }
 
     public function bvnVerify()
     {
         // Fetch all required service fees in one query
-        $serviceCodes = ['101', '102', '103'];
+         $serviceCodes = ['101', '102', '103', '109'];
         $services = Service::whereIn('service_code', $serviceCodes)->get()->keyBy('service_code');
 
         $BVNFee = $services->get('101') ?? 0.00;;
         $bvn_standard_fee = $services->get('102') ?? 0.00;
         $bvn_premium_fee = $services->get('103') ?? 0.00;
+        $bvn_plastic_fee = $services->get('109') ?? 0.00;
 
-
-        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee','bvn_plastic_fee'));
     }
 
     private function createAccounts($userId)
