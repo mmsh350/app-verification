@@ -42,6 +42,7 @@ class VerificationController extends Controller
         $ServiceFee = $services->get('104') ?? 0.00;
         $standard_nin_fee = $services->get('106') ?? 0.00;
         $premium_nin_fee = $services->get('107') ?? 0.00;
+        $bvn_plastic_fee = $services->get('109') ?? 0.00;
 
         return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
