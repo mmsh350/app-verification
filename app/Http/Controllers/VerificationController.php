@@ -44,7 +44,7 @@ class VerificationController extends Controller
         $premium_nin_fee = $services->get('107') ?? 0.00;
       
 
-        return view('verification.nin-verify', compact('ServiceFee', '$standard_nin_fee', '$premium_nin_fee'));
+        return view('verification.nin-verify', compact('ServiceFee', 'standard_nin_fee', 'premium_nin_fee'));
     }
 
     public function bvnVerify()
