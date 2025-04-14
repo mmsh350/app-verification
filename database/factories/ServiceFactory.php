@@ -104,16 +104,27 @@ class ServiceFactory extends Factory
                 'updated_at' => Carbon::now(),
             ],
             [
-                'service_code' => '118',
+                'service_code' => '108',
                 'name' => 'NIN Personalization',
                 'category' => 'Verifications',
-                'type' => null,
+                'type' => 'Uncategorized',
                 'amount' => 200.00,
                 'description' => 'NIN Verification fee using tracking No',
                 'status' => 'enabled',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
-            ]
+            ],
+            [
+                'service_code' => '109',
+                'name' => 'BVN Plastic ID',
+                'category' => 'Verifications',
+                'type' => 'Uncategorized',
+                'amount' => 50.00,
+                'description' => 'BVN Plastic ID FEE',
+                'status' => 'enabled',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ];
     }
 }
