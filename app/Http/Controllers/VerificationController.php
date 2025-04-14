@@ -33,7 +33,7 @@ class VerificationController extends Controller
     public function ninVerify()
     {
 
-        $serviceCodes = ['104', '105', '106', '107'];
+        $serviceCodes = ['101', '102', '103', '109'];
         $services = Service::whereIn('service_code', $serviceCodes)
             ->get()
             ->keyBy('service_code');
@@ -43,7 +43,7 @@ class VerificationController extends Controller
         $standard_nin_fee = $services->get('106') ?? 0.00;
         $premium_nin_fee = $services->get('107') ?? 0.00;
 
-        return view('verification.nin-verify', compact('ServiceFee', 'standard_nin_fee', 'premium_nin_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
 
     public function bvnVerify()
