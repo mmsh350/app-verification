@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
         [
             'name' => 'Ussey Admin',
             'email_verified_at' => now(),
-            'password' => bcrypt('@Ussey1058'),
+           'password' => Hash::make('@Ussey1058'),
             'remember_token' => Str::random(10),
         ]
        );
