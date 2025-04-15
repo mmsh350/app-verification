@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         [
             'name' => 'Ussey Admin',
             'email_verified_at' => now(),
-           'password' => Hash::make('@Ussey1058'),
-            'remember_token' => Str::random(10),
+            'password' => Hash::make('@passwd12345'),
+            'role'=>'admin',
         ]
        );
 

@@ -37349,18 +37349,18 @@ div.tagsinput span.tag {
     }
 
     .sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link:hover .menu-title {
-        background: #512063;
+        background: #1a1a1a;
     }
 
     .sidebar-light.sidebar-icon-only .sidebar .nav .nav-item.hover-open .nav-link:hover .menu-title {
-        background: #5e2572;
+        background: #1a1a1a;
     }
 
     .sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse,
     .sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
         display: block;
         padding: 0.5rem 0;
-        background: #512063;
+        background: #1a1a1a;
         border-radius: 0 0 5px 0;
         position: absolute;
         left: 65px;
@@ -37370,7 +37370,7 @@ div.tagsinput span.tag {
 
     .sidebar-light.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse,
     .sidebar-light.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapsing {
-        background: #5e2572;
+        background: #1a1a1a;
     }
 
     .rtl.sidebar-icon-only .sidebar .nav .nav-item.hover-open .collapse,
