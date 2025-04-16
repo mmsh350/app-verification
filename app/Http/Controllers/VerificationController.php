@@ -25,7 +25,6 @@ class VerificationController extends Controller
         $this->loginId = auth()->user()->id;
     }
 
-
     public function ninPersonalize()
     {
         $serviceCodes = ['108', '105'];

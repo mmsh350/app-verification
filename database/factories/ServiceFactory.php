@@ -125,6 +125,17 @@ class ServiceFactory extends Factory
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'service_code' => '110',
+                'name' => 'BVN Enrollment',
+                'category' => 'Agency',
+                'type' => 'Uncategorized',
+                'amount' => 200.00,
+                'description' => 'BVN Enrollment FEE',
+                'status' => 'enabled',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]
         ];
     }
 }
