@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\PaymentWebhookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VerificationController;
@@ -44,7 +45,10 @@ Route::middleware(['auth', 'user.active'])->group(function () {
             Route::get('/verify-nin', [VerificationController::class, 'ninVerify'])->name('verify-nin');
             Route::get('/verify-bvn', [VerificationController::class, 'bvnVerify'])->name('verify-bvn');
             Route::get('/nin-personalize', [VerificationController::class, 'ninPersonalize'])->name('personalize-nin');
+            Route::get('/bvn-enrollment', [EnrollmentController::class, 'bvnEnrollment'])->name('bvn-enrollment');
 
+            //Enrollment-----------------------------------------------------------------------------------------------------
+            Route::post('/bvn-enrollment', [EnrollmentController::class, 'enrollBVN'])->name('enroll-bvn');
             //Wallet
             Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
             Route::get('claim-bonus/{id}', [WalletController::class, 'claimBonus'])->name('claim-bonus');

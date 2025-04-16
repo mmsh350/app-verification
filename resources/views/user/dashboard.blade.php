@@ -229,6 +229,21 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-6 col-md-6 col-lg-4">
+                                <div class="card shadow-sm border-0 h-100">
+                                    <div class="card-body text-center p-3">
+                                        <div class="icon-box mb-3">
+                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
+                                                style="width: 70px; height: 70px;">
+                                                <i class="bi bi-person-plus text-white" style="font-size: 35px;"></i>
+                                            </div>
+                                        </div>
+                                        <h5 class="icon-box-title mb-0 fw-bold">BVN Enrollment</h5>
+                                        <a href="{{ route('user.bvn-enrollment') }}" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                            </div>
                             {{-- <!-- Service 3 -->
                             <div class="col-6 col-md-6 col-lg-4">
                                 <div class="card shadow-sm border-0 h-100">
@@ -256,22 +271,6 @@
                                             </div>
                                         </div>
                                         <h5 class="icon-box-title mb-0 fw-bold">CRM Request</h5>
-                                        <a href="#" class="stretched-link"></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Service 5 -->
-                            <div class="col-6 col-md-6 col-lg-4">
-                                <div class="card shadow-sm border-0 h-100">
-                                    <div class="card-body text-center p-3">
-                                        <div class="icon-box mb-3">
-                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
-                                                <i class="bi bi-person-plus text-white" style="font-size: 35px;"></i>
-                                            </div>
-                                        </div>
-                                        <h5 class="icon-box-title mb-0 fw-bold">BVN Enrollment</h5>
                                         <a href="#" class="stretched-link"></a>
                                     </div>
                                 </div>
