@@ -579,7 +579,7 @@ class VerificationController extends Controller
 
         //NIN Services Fee
         $ServiceFee = 0;
-        $ServiceFee = Service::where('service_code', '108')->first();
+        $ServiceFee = Service::where('service_code', '105')->first();
         $ServiceFee = $ServiceFee->amount;
 
         //Check if wallet is funded
