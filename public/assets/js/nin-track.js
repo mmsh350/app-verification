@@ -39,7 +39,7 @@ $("#verifyNIN").on("click", function (event) {
                 validationInfo.innerHTML = `
             <div class="border border-light">
    <div class="table-responsive">
-   <center><span class="text-danger mt-4" style="margin-top:5px;">${result.data.message}</span></center>
+   <center><span class="text-danger mt-4" style="margin-top:5px; padding-top:3px;">${result.data.message}</span></center>
       <table class="table">
          <thead >
             <tr>
