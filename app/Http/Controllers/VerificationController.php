@@ -162,7 +162,7 @@ class VerificationController extends Controller
             return redirect()->back()->with('error', 'An error occurred while making the BVN Verification');
         }
     }
-    
+
     public function ninRetrieve(Request $request)
     {
 
@@ -567,7 +567,7 @@ class VerificationController extends Controller
             'middle_name' => $data['middlename'],
             'last_name' => $data['lastname'],
             'dob' => '1970-01-01',
-            'gender' => $data['gender'] == 'm' || $data['data']['gender'] == 'Male' ? 'Male' : 'Female',
+            'gender' => $data['gender'] == 'm' || $data['gender'] == 'Male' ? 'Male' : 'Female',
             'state' => $data['state'],
             'lga' => $data['town'],
             'address' => $data['address'],
