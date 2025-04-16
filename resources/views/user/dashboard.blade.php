@@ -104,20 +104,24 @@
 
         .card:hover {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }.copy-btn-wrap .btn {
-    padding: 4px 12px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-    background-color: #007bff; /* Bootstrap primary blue */
-    border: none;
-    border-radius: 6px;
-    transition: background-color 0.3s ease;
-}
+        }
 
-.copy-btn-wrap .btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
+        .copy-btn-wrap .btn {
+            padding: 4px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #007bff;
+            /* Bootstrap primary blue */
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-btn-wrap .btn:hover {
+            background-color: #0056b3;
+            /* Darker blue on hover */
+        }
     </style>
 @endpush
 @section('content')
@@ -146,7 +150,8 @@
                                 ₦{{ auth()->user()->wallet ? number_format(auth()->user()->wallet->balance, 2) : '0.00' }}
                             </h1>
 
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#walletModal" class="btn btn-sm btn-outline-primary mt-3">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#walletModal"
+                                class="btn btn-sm btn-outline-primary mt-3">
                                 Add Fund
                             </a>
                         </div>
@@ -220,7 +225,7 @@
                                             </div>
                                         </div>
                                         <h5 class="icon-box-title mb-0 fw-bold">Personalize</h5>
-                                        <a href="#" class="stretched-link"></a>
+                                        <a href="{{ route('user.personalize-nin') }}" class="stretched-link"></a>
                                     </div>
                                 </div>
                             </div>
@@ -408,95 +413,94 @@
                 </div>
             </div>
 
-             <div class="modal fade" id="walletModal" tabindex="-1" aria-labelledby="walletModalModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="walletModalLabel">Fund Wallet</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="modal fade" id="walletModal" tabindex="-1" aria-labelledby="walletModalModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="walletModalLabel">Fund Wallet</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <small class="fw-semibold">Fund your wallet instantly by depositing
+                                into the virtual account number</small>
+                            <ul class="list-unstyled virtual-account-list mt-3 mb-0">
+                                @if (auth()->user()->virtualAccount != null)
+                                    @foreach (auth()->user()->virtualAccount as $data)
+                                        <li class="account-item mb-3 p-2">
+                                            <div class="d-flex align-items-start">
+                                                <div class="bank-logo me-3">
+                                                    <img src="{{ asset('assets/images/' . strtolower(str_replace(' ', '', $data->bankName)) . '.png') }}"
+                                                        alt="{{ $data->bankName }} logo">
+                                                </div>
+                                                <div class="flex-fill">
+                                                    <p class="account-name mb-1">{{ $data->accountName }}</p>
+                                                    <span class="account-number d-block">{{ $data->accountNo }}</span>
+                                                    <small class="bank-name text-muted">{{ $data->bankName }}</small>
+                                                </div>
+                                                <div class="copy-btn-wrap ms-auto">
+                                                    <button class="btn btn-outline-secondary btn-sm copy-account-number"
+                                                        data-account="{{ $data->accountNo }}">
+                                                        Copy
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+
+                            <hr>
+                            <center>
+                                <a style="text-decoration:none" class="mb-2" href="{{ route('user.support') }}">
+                                    <small class="fw-semibol text-danger">If your funds is not
+                                        received within 30mins.
+                                        Please Contact Support
+                                        <i class="mdi mdi-headphones mdi-12px" style="font-size:24px"></i>
+                                    </small> </a>
+
+                                <a style="text-decoration:none" href="{{ route('user.wallet') }}">
+                                    <h4 class="fw-semibol text-danger">Go to wallet
+                                        <i class="mdi mdi-wallet-outline mdi-36px" style="font-size:24px"></i>
+                                    </h4>
+                                </a>
+                            </center>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                                        <small class="fw-semibold">Fund your wallet instantly by depositing
-                                                    into the virtual account number</small>
-                                                 <ul class="list-unstyled virtual-account-list mt-3 mb-0">
-                                                    @if (auth()->user()->virtualAccount != null)
-                                                        @foreach (auth()->user()->virtualAccount as $data)
-                                                            <li class="account-item mb-3 p-2">
-                                                                <div class="d-flex align-items-start">
-                                                                    <div class="bank-logo me-3">
-                                                                        <img src="{{ asset('assets/images/' . strtolower(str_replace(' ', '', $data->bankName)) . '.png') }}"
-                                                                            alt="{{ $data->bankName }} logo">
-                                                                    </div>
-                                                                    <div class="flex-fill">
-                                                                        <p class="account-name mb-1">{{ $data->accountName }}</p>
-                                                                        <span class="account-number d-block">{{ $data->accountNo }}</span>
-                                                                        <small class="bank-name text-muted">{{ $data->bankName }}</small>
-                                                                    </div>
-                                                                    <div class="copy-btn-wrap ms-auto">
-                                                                        <button class="btn btn-outline-secondary btn-sm copy-account-number" data-account="{{ $data->accountNo }}">
-                                                                            Copy
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        @endforeach
-                                                    @endif
-                                               </ul>
+        @endsection
+        @push('scripts')
+            <script>
+                @if ($kycPending)
+                    const kycModal = new bootstrap.Modal(document.getElementById('kycModal'));
+                    kycModal.show();
+                @endif
 
-                                                <hr>
-                                                <center>
-                                                    <a style="text-decoration:none" class="mb-2" href="{{ route('user.support') }}">
-                                                        <small class="fw-semibol text-danger">If your funds is not
-                                                            received within 30mins.
-                                                            Please Contact Support
-                                                            <i class="mdi mdi-headphones mdi-12px"
-                                                                style="font-size:24px"></i>
-                                                        </small> </a>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const form = document.getElementById('verify');
+                    const submitButton = document.getElementById('submit');
 
-                                                        <a style="text-decoration:none" href="{{ route('user.wallet') }}">
-                                                        <h4 class="fw-semibol text-danger">Go to wallet
-                                                            <i class="mdi mdi-wallet-outline mdi-36px"
-                                                                style="font-size:24px"></i>
-                                                        </h4> </a>
-                                                </center>
-
-            </div>
-        </div>
-    </div>
-</div>
-                @endsection
-                @push('scripts')
-                    <script>
-                        @if ($kycPending)
-                            const kycModal = new bootstrap.Modal(document.getElementById('kycModal'));
-                            kycModal.show();
-                        @endif
-
-                        document.addEventListener('DOMContentLoaded', function() {
-                            const form = document.getElementById('verify');
-                            const submitButton = document.getElementById('submit');
-
-                            if (form && submitButton) {
-                                form.addEventListener('submit', function() {
-                                    submitButton.disabled = true;
-                                    submitButton.innerText = 'Verifying ...';
-                                });
-                            }
+                    if (form && submitButton) {
+                        form.addEventListener('submit', function() {
+                            submitButton.disabled = true;
+                            submitButton.innerText = 'Verifying ...';
                         });
+                    }
+                });
 
 
-    document.querySelectorAll('.copy-account-number').forEach(button => {
-        button.addEventListener('click', function () {
-            const acctNo = this.getAttribute('data-account');
-            navigator.clipboard.writeText(acctNo);
-            this.innerText = 'Copied!';
-            setTimeout(() => {
-                this.innerText = 'Copy';
-            }, 2000);
-        });
-    });
-
-
-                    </script>
-
-                @endpush
+                document.querySelectorAll('.copy-account-number').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const acctNo = this.getAttribute('data-account');
+                        navigator.clipboard.writeText(acctNo);
+                        this.innerText = 'Copied!';
+                        setTimeout(() => {
+                            this.innerText = 'Copy';
+                        }, 2000);
+                    });
+                });
+            </script>
+        @endpush
