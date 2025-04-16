@@ -16,8 +16,8 @@
         </div>
         <div class="d-block d-sm-none mt-1">
             <small>Referral Code:</small>
-           <p class="badge bg-danger">{{ ucwords(auth()->user()->referral_code) }}</p>
-       </div>
+            <p class="badge bg-danger">{{ ucwords(auth()->user()->referral_code) }}</p>
+        </div>
     </div>
 
     <ul class="nav">
@@ -30,25 +30,31 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.wallet') }}">
+                <i class="mdi mdi-wallet menu-icon"></i>
+                <span class="menu-title">Fund Wallet</span>
+            </a>
+        </li>
+
         <!-- Verification Section -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user.verify-nin') }}">
-                <i class="mdi mdi-check-circle-outline menu-icon"></i>
+                <i class="mdi mdi-fingerprint menu-icon"></i>
                 <span class="menu-title">Verify NIN</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user.verify-bvn') }}">
-                <i class="mdi mdi-check-circle-outline menu-icon"></i>
+                <i class="mdi mdi-fingerprint menu-icon"></i>
                 <span class="menu-title">Verify BVN</span>
             </a>
         </li>
-
-         <li class="nav-item">
-            <a class="nav-link" href="{{ route('user.wallet') }}">
-                <i class="mdi mdi-wallet menu-icon"></i>
-                <span class="menu-title">Fund Wallet</span>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.personalize-nin') }}">
+                <i class="mdi mdi-magnify menu-icon"></i>
+                <span class="menu-title">Personalize</span>
             </a>
         </li>
 
@@ -70,7 +76,5 @@
                 </a>
             </form>
         </li>
-
-
     </ul>
 </nav>

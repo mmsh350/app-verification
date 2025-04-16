@@ -104,7 +104,7 @@ class ServiceFactory extends Factory
                 'updated_at' => Carbon::now(),
             ],
             [
-                'service_code' => '118',
+                'service_code' => '108',
                 'name' => 'NIN Personalization',
                 'category' => 'Verifications',
                 'type' => null,
