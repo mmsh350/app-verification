@@ -26,9 +26,18 @@ class VerificationController extends Controller
     }
 
 
-    public function index()
+    public function ninPersonalize()
     {
-        // return view('verification.nin-verify');
+        $serviceCodes = ['108', '105'];
+        $services = Service::whereIn('service_code', $serviceCodes)
+            ->get()
+            ->keyBy('service_code');
+
+        // Extract specific service fees
+        $ServiceFee = $services->get('108') ?? 0.00;
+        $regular_nin_fee = $services->get('105') ?? 0.00;
+
+        return view('verification.nin-track', compact('ServiceFee', 'regular_nin_fee'));
     }
 
     public function ninVerify()
@@ -43,7 +52,7 @@ class VerificationController extends Controller
         $ServiceFee = $services->get('104') ?? 0.00;
         $standard_nin_fee = $services->get('106') ?? 0.00;
         $premium_nin_fee = $services->get('107') ?? 0.00;
-      
+
 
         return view('verification.nin-verify', compact('ServiceFee', 'standard_nin_fee', 'premium_nin_fee'));
     }
@@ -51,7 +60,7 @@ class VerificationController extends Controller
     public function bvnVerify()
     {
         // Fetch all required service fees in one query
-         $serviceCodes = ['101', '102', '103', '109'];
+        $serviceCodes = ['101', '102', '103', '109'];
         $services = Service::whereIn('service_code', $serviceCodes)->get()->keyBy('service_code');
 
         $BVNFee = $services->get('101') ?? 0.00;;
@@ -59,7 +68,7 @@ class VerificationController extends Controller
         $bvn_premium_fee = $services->get('103') ?? 0.00;
         $bvn_plastic_fee = $services->get('109') ?? 0.00;
 
-        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee','bvn_plastic_fee'));
+        return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
 
     private function createAccounts($userId)
@@ -153,8 +162,7 @@ class VerificationController extends Controller
             return redirect()->back()->with('error', 'An error occurred while making the BVN Verification');
         }
     }
-
-
+    
     public function ninRetrieve(Request $request)
     {
 
@@ -394,6 +402,125 @@ class VerificationController extends Controller
         }
     }
 
+    public function ninTrackRetrieve(Request $request)
+    {
+
+        $request->validate([
+            'trackingId' => 'required|alpha_num|size:15',
+        ]);
+
+        //NIN Services Fee
+        $ServiceFee = 0;
+
+        $ServiceFee = Service::where('service_code', '108')
+            ->where('status', 'enabled')
+            ->first();
+
+        if (!$ServiceFee)
+            return response()->json([
+                'message' => 'Error',
+                'errors' => ['Service Error' => 'Sorry Action not Allowed !'],
+            ], 422);
+
+        $ServiceFee = $ServiceFee->amount;
+
+        $loginUserId = auth()->user()->id;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $loginUserId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance < $ServiceFee) {
+            return response()->json([
+                'message' => 'Error',
+                'errors' => ['Wallet Error' => 'Sorry Wallet Not Sufficient for Transaction !'],
+            ], 422);
+        } else {
+
+            try {
+
+                $data = ['trackingId' => $request->input('trackingId')];
+
+                $url = env('BASE_URL_VERIFY_USER') . 'api/v1/tracking-nin';
+                $token = env('VERIFY_USER_TOKEN');
+
+                $headers = [
+                    'Accept: application/json, text/plain, */*',
+                    'Content-Type: application/json',
+                    "Authorization: Bearer $token",
+                ];
+
+                // Initialize cURL
+                $ch = curl_init();
+
+                // Set cURL options
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+                // Execute request
+                $response = curl_exec($ch);
+
+                // Check for cURL errors
+                if (curl_errno($ch)) {
+                    throw new \Exception('cURL Error: ' . curl_error($ch));
+                }
+
+                // Close cURL session
+                curl_close($ch);
+
+                $response = json_decode($response, true);
+
+                if (isset($response['respCode']) && $response['respCode'] == '000') {
+
+                    $data = $response['message'];
+
+                    $this->processResponseDataForNINTracking($data);
+
+                    $balance = $wallet->balance - $ServiceFee;
+
+                    Wallet::where('user_id', $loginUserId)
+                        ->update(['balance' => $balance]);
+
+                    $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+                    $this->transactionService->createTransaction($loginUserId, $ServiceFee, 'NIN Personalize', $serviceDesc,  'Wallet', 'Approved');
+
+                    return json_encode(['status' => 'success', 'data' => $data]);
+                } else if ($response['respCode'] == '103') {
+
+
+                    // $balance = $wallet->balance - $ServiceFee;
+
+                    // Wallet::where('user_id', $this->loginId)
+                    //     ->update(['balance' => $balance]);
+
+                    // $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+                    // $this->transactionService->createTransaction($loginUserId, $ServiceFee, 'NIN Verification', $serviceDesc,  'Wallet', 'Approved');
+
+                    return response()->json([
+                        'status' => 'Not Found',
+                        'errors' => ['Succesfully Verified with ( NIN do not exist)'],
+                    ], 422);
+                } else {
+                    return response()->json([
+                        'status' => 'Verification Failed',
+                        'errors' => ['Verification Failed: No need to worry, your wallet remains secure and intact. Please try again or contact support for assistance.'],
+                    ], 422);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => 'Request failed',
+                    'errors' => ['An error occurred while making the API request'],
+                ], 422);
+            }
+        }
+    }
+
     public function processResponseDataForNIN($data)
     {
 
@@ -410,7 +537,6 @@ class VerificationController extends Controller
             'photo' => $data['photo'],
         ]);
     }
-
 
     public function processResponseDataForBVN($data)
     {
@@ -429,7 +555,59 @@ class VerificationController extends Controller
             ]
         );
     }
+    public function processResponseDataForNINTracking($data)
+    {
 
+        $user = Verification::create([
+            'idno' => $data['nin'],
+            'type' => 'NIN',
+            'nin' => $data['nin'],
+            'trackingId' => $data['trackingid'],
+            'first_name' => $data['firstname'],
+            'middle_name' => $data['middlename'],
+            'last_name' => $data['lastname'],
+            'dob' => '1970-01-01',
+            'gender' => $data['gender'] == 'm' || $data['data']['gender'] == 'Male' ? 'Male' : 'Female',
+            'state' => $data['state'],
+            'lga' => $data['town'],
+            'address' => $data['address'],
+            'photo' => $data['face'],
+        ]);
+    }
+    public function regularSlip($nin_no)
+    {
+
+        //NIN Services Fee
+        $ServiceFee = 0;
+        $ServiceFee = Service::where('service_code', '108')->first();
+        $ServiceFee = $ServiceFee->amount;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $this->loginId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance  < $ServiceFee) {
+            return response()->json([
+                "message" => "Error",
+                "errors" => array("Wallet Error" => "Sorry Wallet Not Sufficient for Transaction !")
+            ], 422);
+        } else {
+            $balance = $wallet->balance - $ServiceFee;
+
+            $affected = Wallet::where('user_id', $this->loginId)
+                ->update(['balance' => $balance]);
+
+            $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+            $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'Regular NIN Slip', $serviceDesc,  'Wallet', 'Approved');
+
+            //Generate PDF
+            $repObj = new NIN_PDF_Repository();
+            $response = $repObj->regularPDF($nin_no);
+            return  $response;
+        }
+    }
     public function standardSlip($nin_no)
     {
 
@@ -596,37 +774,36 @@ class VerificationController extends Controller
         }
     }
     public function plasticBVN($bvnno)
-     {
-         //Services Fee
-         $ServiceFee = 0;
-         $ServiceFee = Service::where('service_code', '109')->first();
-         $ServiceFee = $ServiceFee->amount;
- 
-         //Check if wallet is funded
-         $wallet = Wallet::where('user_id', $this->loginId)->first();
-         $wallet_balance = $wallet->balance;
-         $balance = 0;
- 
-         if ($wallet_balance  < $ServiceFee) {
-             return response()->json([
-                 "message" => "Error",
-                 "errors" => array("Wallet Error" => "Sorry Wallet Not Sufficient for Transaction !")
-             ], 422);
-         } else {
-             $balance = $wallet->balance - $ServiceFee;
- 
-             $affected = Wallet::where('user_id', $this->loginId)
-                 ->update(['balance' => $balance]);
- 
-             $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
- 
-             $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'Plastic ID Card', $serviceDesc,  'Wallet', 'Approved');
- 
-             //Generate PDF
-             $repObj = new BVN_PDF_Repository();
-             $response = $repObj->plasticPDF($bvnno);
-             return  $response;
-         }
-     }
- 
+    {
+        //Services Fee
+        $ServiceFee = 0;
+        $ServiceFee = Service::where('service_code', '109')->first();
+        $ServiceFee = $ServiceFee->amount;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $this->loginId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance  < $ServiceFee) {
+            return response()->json([
+                "message" => "Error",
+                "errors" => array("Wallet Error" => "Sorry Wallet Not Sufficient for Transaction !")
+            ], 422);
+        } else {
+            $balance = $wallet->balance - $ServiceFee;
+
+            $affected = Wallet::where('user_id', $this->loginId)
+                ->update(['balance' => $balance]);
+
+            $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+            $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'Plastic ID Card', $serviceDesc,  'Wallet', 'Approved');
+
+            //Generate PDF
+            $repObj = new BVN_PDF_Repository();
+            $response = $repObj->plasticPDF($bvnno);
+            return  $response;
+        }
+    }
 }

@@ -43,7 +43,7 @@ Route::middleware(['auth', 'user.active'])->group(function () {
         Route::middleware(['user.active', 'user.is_kyced'])->group(function () {
             Route::get('/verify-nin', [VerificationController::class, 'ninVerify'])->name('verify-nin');
             Route::get('/verify-bvn', [VerificationController::class, 'bvnVerify'])->name('verify-bvn');
-            Route::get('/nin-personalize', [VerificationController::class, 'index'])->name('nin-personalize');
+            Route::get('/nin-personalize', [VerificationController::class, 'ninPersonalize'])->name('personalize-nin');
 
             //Wallet
             Route::get('/wallet', [WalletController::class, 'index'])->name('wallet');
@@ -53,14 +53,17 @@ Route::middleware(['auth', 'user.active'])->group(function () {
             Route::get('/receipt/{referenceId}', [TransactionController::class, 'reciept'])->name('reciept');
 
             //Verification-----------------------------------------------------------------------------------------------------
+            //NIN
             Route::post('/nin-retrieve', [VerificationController::class, 'ninRetrieve'])->name('ninRetrieve');
+            Route::post('/nin-track-retrieve', [VerificationController::class, 'ninTrackRetrieve'])->name('ninTrackRetrieve');
+            //BVN
             Route::post('/bvn-retrieve', [VerificationController::class, 'bvnRetrieve'])->name('bvnRetrieve');
 
             //PDF Downloads -----------------------------------------------------------------------------------------------------
             Route::get('/standardBVN/{id}', [VerificationController::class, 'standardBVN'])->name("standardBVN");
             Route::get('/premiumBVN/{id}', [VerificationController::class, 'premiumBVN'])->name("premiumBVN");
-             Route::get('/plasticBVN/{id}', [VerificationController::class, 'plasticBVN'])->name("plasticBVN");
-            
+            Route::get('/plasticBVN/{id}', [VerificationController::class, 'plasticBVN'])->name("plasticBVN");
+
             Route::get('/regularSlip/{id}', [VerificationController::class, 'regularSlip'])->name("regularSlip");
             Route::get('/standardSlip/{id}', [VerificationController::class, 'standardSlip'])->name("standardSlip");
             Route::get('/premiumSlip/{id}', [VerificationController::class, 'premiumSlip'])->name("premiumSlip");

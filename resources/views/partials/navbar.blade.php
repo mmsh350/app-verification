@@ -22,7 +22,7 @@
             <a class="navbar-brand brand-logo" href="{{ route('user.dashboard') }}"> <img
                     src="{{ asset('assets/images/' . $settings->logo ?? 'assets/images/logo.svg') }}"
                     alt="logo"></a>
-            </a>
+
             <a class="navbar-brand brand-logo-mini" href="{{ route('user.dashboard') }}">
                 <img src="{{ asset('assets/images/' . $settings->mini_logo ?? 'assets/images/logo-mini.svg') }}"
                     alt="logo">
@@ -43,8 +43,9 @@
 
                 <span class=" d-none d-sm-flex align-items-center" href="#" data-bs-toggle="dropdown"
                     id="profileDropdownLg">
-                    <span class="nav-profile-name">Referral Code: <small class="badge bg-primary">{{ ucwords(auth()->user()->referral_code )}}</small></span>
-            </span>
+                    <span class="nav-profile-name">Referral Code: <small
+                            class="badge bg-primary">{{ ucwords(auth()->user()->referral_code) }}</small></span>
+                </span>
             </li>
             <li class="nav-item nav-settings d-none d-lg-flex">
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
