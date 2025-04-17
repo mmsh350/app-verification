@@ -242,7 +242,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="staticBackdropLabel2">Support Response
+                            <h6 class="modal-title" id="staticBackdropLabel2">Support
                             </h6>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                 aria-label="Close"></button>
@@ -266,6 +266,14 @@
                 submitButton.disabled = true;
                 submitButton.innerText = 'Please wait while we process your request...';
             });
+        });
+
+        $("#reason").on("shown.bs.modal", function(event) {
+            var button = $(event.relatedTarget);
+
+            var reason = button.data("reason");
+            if (reason != "") $("#message").html(reason);
+            else $("#message").html("No Message Yet.");
         });
     </script>
 @endpush
