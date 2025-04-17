@@ -44,7 +44,7 @@ class EnrollmentController extends Controller
 
         $data = $request->validate([
 
-            'phone' => 'required|numeric|digits:11',
+            'phone' => 'required|numeric|digits:11|unique:bvn_enrollments,phone_number',
             'username' => 'nullable|string|max:255',
             'fullname' => 'required|string',
             'city'  => 'required|string',
@@ -86,7 +86,7 @@ class EnrollmentController extends Controller
                 'errors' => ['Wallet Error' => 'Sorry Wallet Not Sufficient for Transaction !'],
             ], 422);
         } else {
-
+            $responseurl = env('RESPONSE_URL');
             $data = [
                 'fullname' => $request->fullname,
                 'state' => $request->state,
@@ -100,6 +100,7 @@ class EnrollmentController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone,
                 'username' => $request->username,
+                'url' => $responseurl
             ];
 
             try {
