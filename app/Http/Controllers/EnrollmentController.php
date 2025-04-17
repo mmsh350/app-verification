@@ -66,10 +66,8 @@ class EnrollmentController extends Controller
             ->first();
 
         if (!$ServiceFee)
-            return response()->json([
-                'message' => 'Error',
-                'errors' => ['Service Error' => 'Sorry Action not Allowed !'],
-            ], 422);
+            return redirect()->route('user.bvn-enrollment')
+                ->with('error', 'Service Error: Sorry Action not Allowed !');
 
         $ServiceFee = $ServiceFee->amount;
 
@@ -81,10 +79,8 @@ class EnrollmentController extends Controller
         $balance = 0;
 
         if ($wallet_balance < $ServiceFee) {
-            return response()->json([
-                'message' => 'Error',
-                'errors' => ['Wallet Error' => 'Sorry Wallet Not Sufficient for Transaction !'],
-            ], 422);
+            return redirect()->route('user.bvn-enrollment')
+                ->with('error', 'Wallet Error: Sorry Wallet Not Sufficient for Transaction !');
         } else {
             $responseurl = env('RESPONSE_URL');
             $data = [
