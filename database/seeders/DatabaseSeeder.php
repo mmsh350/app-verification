@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-     public function run(): void
+    public function run(): void
     {
 
         SiteSetting::truncate();
@@ -25,15 +25,15 @@ class DatabaseSeeder extends Seeder
         ClaimCount::truncate();
 
 
-       User::updateOrCreate(
-        ['email' => 'admin@usseytech.com.ng'],
-        [
-            'name' => 'Ussey Admin',
-            'email_verified_at' => now(),
-            'password' => Hash::make('@passwd12345'),
-            'role'=>'admin',
-        ]
-       );
+        User::updateOrCreate(
+            ['email' => 'admin@ineplug.com.ng'],
+            [
+                'name' => 'Ineplug Admin',
+                'email_verified_at' => now(),
+                'password' => Hash::make('@passwd12345'),
+                'role' => 'admin',
+            ]
+        );
 
         SiteSetting::factory(1)->create();
 
@@ -43,8 +43,8 @@ class DatabaseSeeder extends Seeder
 
         ClaimCount::factory(1)->create();
 
-         $this->call([
-                ReferralBonusTableSeeder::class,
-           ]);
+        $this->call([
+            ReferralBonusTableSeeder::class,
+        ]);
     }
 }
