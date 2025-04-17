@@ -26,7 +26,7 @@
     <style>
         /* Sidebar base styling */
         .sidebar {
-            background-color: #000;
+            background-color: #ee55a0;
             color: #ecf0f1;
             font-family: Arial, sans-serif;
             /* height: 100vh; */

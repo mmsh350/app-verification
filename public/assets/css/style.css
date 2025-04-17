@@ -13539,7 +13539,7 @@ fieldset:disabled .fc button,
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #5e2572;
     --bs-btn-disabled-border-color: #5e2572; */
-    --bs-btn-color: #fff;
+    /* --bs-btn-color: #fff;
     --bs-btn-bg: #000000;
     --bs-btn-border-color: #000000;
     --bs-btn-hover-color: #fff;
@@ -13547,13 +13547,37 @@ fieldset:disabled .fc button,
     --bs-btn-hover-border-color: #1a1a1a;
     --bs-btn-focus-shadow-rgb: 33, 33, 33;
     /* Optional subtle shadow */
-    --bs-btn-active-color: #fff;
+    /* --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #111111;
     --bs-btn-active-border-color: #111111;
     --bs-btn-active-shadow: none;
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #000000;
-    --bs-btn-disabled-border-color: #000000;
+    --bs-btn-disabled-border-color: #000000;  */
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #ee55a0;
+    /* Changed to #ee55a0 */
+    --bs-btn-border-color: #ee55a0;
+    /* Border color to match the bg */
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #d84a91;
+    /* Slightly darker shade for hover */
+    --bs-btn-hover-border-color: #d84a91;
+    /* Matching border on hover */
+    --bs-btn-focus-shadow-rgb: 238, 85, 160;
+    /* Shadow color based on #ee55a0 */
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #c3407b;
+    /* Even darker shade for active state */
+    --bs-btn-active-border-color: #c3407b;
+    /* Border matching active bg */
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #ee55a0;
+    /* Disabled bg to stay the same */
+    --bs-btn-disabled-border-color: #ee55a0;
+    /* Disabled border */
+
 
 }
 
