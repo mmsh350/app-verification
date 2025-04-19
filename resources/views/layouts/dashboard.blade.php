@@ -51,12 +51,12 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #1a1a1a;
+            background-color: #f29e5f;
             /* color: #3498db; */
         }
 
         .sidebar .nav-link.active {
-            background-color: #1a1a1a;
+            background-color: #f29e5f;
             color: #fff;
         }
 
@@ -125,13 +125,9 @@
     <div class="page-loading" id="loader">
         <div class="page-loading-inner">
 
-            <div class="square-box-loader mb-5">
-                <div class="square-box-loader-container">
-                    <div class="square-box-loader-corner-top"></div>
-                    <div class="square-box-loader-corner-bottom"></div>
-                </div>
-                <div class="square-box-loader-square"></div>
-            </div>
+            <div class="loader-demo-box mb-5" style="height:0px; border:0px !important;">
+                        <div class="circle-loader"></div>
+                      </div>
 
             <h6 class="loader-text">
                 {{ $settings->short_name ?? config('app.name') }}

@@ -111,7 +111,7 @@
             font-size: 14px;
             font-weight: 500;
             color: #fff;
-            background-color: #007bff;
+            background-color: #bf1066;
             /* Bootstrap primary blue */
             border: none;
             border-radius: 6px;
@@ -119,7 +119,7 @@
         }
 
         .copy-btn-wrap .btn:hover {
-            background-color: #0056b3;
+            background-color: #bf1066;
             /* Darker blue on hover */
         }
     </style>
@@ -187,8 +187,8 @@
                                 <div class="card shadow-sm border-0 h-100">
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
-                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center   rounded-circle"
+                                                style="width: 70px; height: 70px; background-color:#bf1066">
                                                 <i class="bi bi-fingerprint text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
@@ -203,8 +203,8 @@
                                 <div class="card shadow-sm border-0 h-100">
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
-                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center  rounded-circle"
+                                                style="width: 70px; height: 70px; background-color:#bf1066 ">
                                                 <i class="bi bi-fingerprint text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
@@ -219,8 +219,8 @@
                                 <div class="card shadow-sm border-0 h-100">
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
-                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center rounded-circle"
+                                                style="width: 70px; height: 70px; background-color:#bf1066">
                                                 <i class="bi bi-search text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
@@ -234,8 +234,8 @@
                                 <div class="card shadow-sm border-0 h-100">
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
-                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                            <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center  rounded-circle"
+                                                style="width: 70px; height: 70px; background-color:#bf1066">
                                                 <i class="bi bi-person-plus text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>

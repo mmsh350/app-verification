@@ -43,8 +43,8 @@
 
                 <span class=" d-none d-sm-flex align-items-center" href="#" data-bs-toggle="dropdown"
                     id="profileDropdownLg">
-                    <span class="nav-profile-name">Referral Code: <small
-                            class="badge bg-primary">{{ ucwords(auth()->user()->referral_code) }}</small></span>
+                    <span class="nav-profile-name" >Referral Code: <small
+                            class="badge bg-primary" style="background-color:#bf1066 !important">{{ ucwords(auth()->user()->referral_code) }}</small></span>
                 </span>
             </li>
             <li class="nav-item nav-settings d-none d-lg-flex">

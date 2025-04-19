@@ -77,7 +77,9 @@
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                 @csrf
-                <a class="nav-link d-flex align-items-center" style="margin-left:14px;" href="#"
+                <a class="nav-link d-flex align-items-center" style="margin-left:14px; transition: 0.3s;"
+   onmouseover="this.style.backgroundColor='#bf1066'; this.style.color='#bf1066';"
+   onmouseout="this.style.backgroundColor=''; this.style.color='';" href="#"
                     onclick="event.preventDefault(); this.closest('form').submit();">
                     <i class="mdi mdi-logout menu-icon"></i>
                     <span class="menu-title">Logout</span>
