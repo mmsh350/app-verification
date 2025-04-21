@@ -250,15 +250,15 @@
                             <p>
                                 <strong class="font-medium text-gray-800">Address:</strong><br>
                                 [Your Street Address], Samaru,<br>
-                                Zaria, Kaduna State, Nigeria (Placeholder)
+                                Zaria, Kaduna State, Nigeria
                             </p>
                             <p>
                                 <strong class="font-medium text-gray-800">Phone:</strong><br>
-                                <a href="tel:+234XXXXXXXXXX" class="text-primary-600 hover:text-primary-800">+234 (XXX) XXX-XXXX (Placeholder)</a>
+                                <a href="tel:+234XXXXXXXXXX" class="text-primary-600 hover:text-primary-800">+234 08053948114</a>
                             </p>
                             <p>
                                 <strong class="font-medium text-gray-800">Email:</strong><br>
-                                <a href="mailto:info@sitename.com" class="text-primary-600 hover:text-primary-800">info@sitename.com (Placeholder)</a>
+                                <a href="mailto:info@sitename.com" class="text-primary-600 hover:text-primary-800">idenfyng@gmail.com</a>
                             </p>
                         </div>
 
