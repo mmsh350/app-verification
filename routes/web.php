@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\EnrollmentSyncController;
 use App\Http\Controllers\PaymentWebhookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VerificationController;
