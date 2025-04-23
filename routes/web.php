@@ -19,6 +19,8 @@ Route::get('/', function () {
 
 Route::post('/palmpay/webhook', [PaymentWebhookController::class, 'handlePalmPay']);
 
+Route::post('/update-bvn-enrollment-status', [EnrollmentSyncController::class, 'updateStatus']);
+
 Route::group(['as' => 'auth.', 'prefix' => 'auth', 'middleware' => 'guest'], function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('login', [AuthController::class, 'login']);
