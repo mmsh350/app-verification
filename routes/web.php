@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\EnrollmentSyncController;
 use App\Http\Controllers\PaymentWebhookController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VerificationController;
@@ -14,6 +15,8 @@ Route::get('/', function () {
 });
 
 Route::post('/palmpay/webhook', [PaymentWebhookController::class, 'handlePalmPay']);
+
+Route::post('/update-bvn-enrollment-status', [EnrollmentSyncController::class, 'updateStatus']);
 
 Route::group(['as' => 'auth.', 'prefix' => 'auth', 'middleware' => 'guest'], function () {
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
