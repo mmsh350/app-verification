@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'BVN Enrollment')
+@section('title', 'BVN User Request')
 
 @section('content')
     <div class="row">
@@ -11,8 +11,8 @@
             <div class=" grid-margin stretch-card col-md-10   grid-margin stretch-card ">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">BVN Enrollment</h4>
-                        <p class="card-description">Apply for BVN Enrollment: Become
+                        <h4 class="card-title">BVN User Request</h4>
+                        <p class="card-description">Apply for BVN User Request: Become
                             an
                             Authorized Agent for BVN Support</p>
                         <ul class="nav nav-tabs" role="tablist">
@@ -22,7 +22,7 @@
                             </li>
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="history-tab" data-bs-toggle="tab" href="#history-1" role="tab"
-                                    aria-controls="history-1" aria-selected="false" tabindex="-1">Enrollement History</a>
+                                    aria-controls="history-1" aria-selected="false" tabindex="-1">Request History</a>
                             </li>
 
                         </ul>
