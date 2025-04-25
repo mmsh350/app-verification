@@ -89,7 +89,6 @@
                 </ul>
             </li>
         @endif
-
         <!-- Logout Section -->
         <li class="nav-item">
             <form action="{{ route('logout') }}" method="POST" class="d-inline">
