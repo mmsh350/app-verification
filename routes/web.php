@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\EnrollmentSyncController;
 use App\Http\Controllers\PaymentWebhookController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\WalletController;
@@ -88,9 +89,16 @@ Route::middleware(['auth', 'user.active'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-// // Admin Routes
-// Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'is_active', 'admin']], function () {
-//     Route::get('/dashboard', [DashboardController::class, 'adminIndex'])->name('admin.dashboard');
-//  Route::get('/admin/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
-//     Route::put('/admin/settings', [SiteSettingController::class, 'update'])->name('settings.update');
-// });
+// Admin Routes
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'user.active', 'user.admin']], function () {
+    // Route::get('/dashboard', [DashboardController::class, 'adminIndex'])->name('dashboard');
+
+    // // Site Settings
+    // Route::get('/settings', [SiteSettingController::class, 'edit'])->name('settings.edit');
+    // Route::put('/settings', [SiteSettingController::class, 'update'])->name('settings.update');
+
+    // Services
+    Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
+    Route::get('/services/edit/{id}', [ServicesController::class, 'edit'])->name('services.edit');
+    Route::put('/services/update/{id}', [ServicesController::class, 'update'])->name('services.update');
+});

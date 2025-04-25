@@ -239,7 +239,7 @@
                                                 <i class="bi bi-person-plus text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
-                                        <h5 class="icon-box-title mb-0 fw-bold">BVN Enrollment</h5>
+                                        <h5 class="icon-box-title mb-0 fw-bold">BVN User</h5>
                                         <a href="{{ route('user.bvn-enrollment') }}" class="stretched-link"></a>
                                     </div>
                                 </div>
