@@ -62,7 +62,7 @@
             <a class="nav-link" href="{{ route('user.bvn-enrollment') }}">
                 <i class="mdi mdi-account-plus menu-icon"></i>
 
-                <span class="menu-title">BVN Enrollment</span>
+                <span class="menu-title">BVN User</span>
             </a>
         </li>
 
