@@ -11,13 +11,10 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
-    return redirect()->away('https://usseytech.com.ng/auth/login');
+    return view('welcome');
 });
+
 
 Route::post('/palmpay/webhook', [PaymentWebhookController::class, 'handlePalmPay']);
 
