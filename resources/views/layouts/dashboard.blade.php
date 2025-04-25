@@ -73,9 +73,18 @@
             font-weight: 500;
         }
 
-        /* Remove sub-menu and nested styling */
+        /* Remove sub-menu and nested styling
         .sidebar .sub-menu {
             display: none;
+        } */
+        .sidebar .sub-menu {
+            display: none;
+            padding-left: 2rem;
+            background-color: #111;
+        }
+
+        .sidebar .sub-menu.show {
+            display: block;
         }
 
         /* For collapsible section, remove icon rotation */
@@ -125,12 +134,8 @@
     <div class="page-loading" id="loader">
         <div class="page-loading-inner">
 
-            <div class="square-box-loader mb-5">
-                <div class="square-box-loader-container">
-                    <div class="square-box-loader-corner-top"></div>
-                    <div class="square-box-loader-corner-bottom"></div>
-                </div>
-                <div class="square-box-loader-square"></div>
+            <div class="loader-demo-box mb-5" style="height:0px; border:0px !important;">
+                <div class="circle-loader"></div>
             </div>
 
             <h6 class="loader-text">
@@ -179,6 +184,14 @@
     <script src="{{ asset('assets/js/template.js') }}"></script>
     <script src="{{ asset('assets/js/settings.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script>
+        function toggleSubmenu(e, id) {
+            e.preventDefault();
+            const submenu = document.getElementById(id);
+            submenu.classList.toggle('show');
+        }
+    </script>
+
     <!-- endinject -->
 
     <!-- Custom js for this page-->
