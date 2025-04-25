@@ -16,11 +16,28 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        // Allow access to login route
+        if ($request->routeIs('auth.login')) {
             return $next($request);
         }
 
-        return redirect()->route('dashboard')->with('error', 'Unauthorized access.');
-        return $next($request);
+        // Redirect unauthenticated users
+        if (!Auth::check()) {
+            return redirect()->route('auth.login')->with('error', 'Please log in.');
+        }
+
+        // Redirect if user is inactive
+        if (!Auth::user()->is_active) {
+            Auth::logout();
+            return redirect()->route('auth.login')->with('error', 'Account disabled. Contact support.');
+        }
+
+        // Allow admins or proceed for all others
+        if (Auth::user()->role === 'admin') {
+            return $next($request);
+        }
+
+        // Default redirect for unauthorized roles
+        return redirect()->route('user.dashboard')->with('error', 'Unauthorized access.');
     }
 }
