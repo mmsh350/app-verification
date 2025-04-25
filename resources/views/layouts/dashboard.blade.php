@@ -26,7 +26,7 @@
     <style>
         /* Sidebar base styling */
         .sidebar {
-            background-color: #000;
+            background-color: #0db4bd;
             color: #ecf0f1;
             font-family: Arial, sans-serif;
             /* height: 100vh; */
@@ -51,12 +51,12 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #1a1a1a;
+            background-color: #09848a;
             /* color: #3498db; */
         }
 
         .sidebar .nav-link.active {
-            background-color: #1a1a1a;
+            background-color: #09848a;
             color: #fff;
         }
 
@@ -134,9 +134,12 @@
     <div class="page-loading" id="loader">
         <div class="page-loading-inner">
 
+
+
             <div class="loader-demo-box mb-5" style="height:0px; border:0px !important;">
-                <div class="circle-loader"></div>
-            </div>
+                        <div class="circle-loader"></div>
+                      </div>
+
 
             <h6 class="loader-text">
                 {{ $settings->short_name ?? config('app.name') }}

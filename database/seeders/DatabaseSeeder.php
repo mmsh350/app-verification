@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
 
 
        User::updateOrCreate(
-        ['email' => 'admin@usseytech.com.ng'],
+        ['email' => 'admin@aataskarbege.com.ng'],
         [
-            'name' => 'Ussey Admin',
+            'name' => 'AA Taska Admin',
             'email_verified_at' => now(),
             'password' => Hash::make('@passwd12345'),
             'role'=>'admin',
