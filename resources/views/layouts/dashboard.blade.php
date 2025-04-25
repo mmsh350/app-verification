@@ -51,7 +51,7 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #512063;
+            background-color: #2a1a36;
             /* color: #3498db; */
         }
 
