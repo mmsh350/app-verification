@@ -73,20 +73,22 @@
             </a>
         </li>
         <!-- Admin Section -->
-        <li class="nav-item">
-            <a href="#" class="nav-link" onclick="toggleSubmenu(event, 'adminSubmenu')">
-                <i class="mdi mdi-cog-outline menu-icon"></i>
-                <span class="menu-title">Manage</span>
-                <i class="mdi mdi-chevron-down ms-auto"></i>
-            </a>
-            <ul class="sub-menu nav flex-column ps-4" id="adminSubmenu">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.services.index') }}">
-                        <i class="mdi mdi-pencil menu-icon"></i> Services
-                    </a>
-                </li>
-            </ul>
-        </li>
+        @if (auth()->user()->role == 'admin')
+            <li class="nav-item">
+                <a href="#" class="nav-link" onclick="toggleSubmenu(event, 'adminSubmenu')">
+                    <i class="mdi mdi-cog-outline menu-icon"></i>
+                    <span class="menu-title">Manage</span>
+                    <i class="mdi mdi-chevron-down ms-auto"></i>
+                </a>
+                <ul class="sub-menu nav flex-column ps-4" id="adminSubmenu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.services.index') }}">
+                            <i class="mdi mdi-pencil menu-icon"></i> Services
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
 
         <!-- Logout Section -->
         <li class="nav-item">
