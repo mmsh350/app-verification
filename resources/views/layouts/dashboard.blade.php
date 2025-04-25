@@ -51,12 +51,12 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #f29e5f;
+            background-color: #c01065;
             /* color: #3498db; */
         }
 
         .sidebar .nav-link.active {
-            background-color: #f29e5f;
+            background-color: #c01065;
             color: #fff;
         }
 
@@ -80,7 +80,7 @@
         .sidebar .sub-menu {
             display: none;
             padding-left: 2rem;
-            background-color: #111;
+            background-color: #ed55a0;
         }
 
         .sidebar .sub-menu.show {
@@ -135,8 +135,8 @@
         <div class="page-loading-inner">
 
             <div class="loader-demo-box mb-5" style="height:0px; border:0px !important;">
-                        <div class="circle-loader"></div>
-                      </div>
+                <div class="circle-loader"></div>
+            </div>
 
             <h6 class="loader-text">
                 {{ $settings->short_name ?? config('app.name') }}
