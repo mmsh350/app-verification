@@ -62,7 +62,7 @@
             <a class="nav-link" href="{{ route('user.bvn-enrollment') }}">
                 <i class="mdi mdi-account-plus menu-icon"></i>
 
-                <span class="menu-title">BVN Enrollment</span>
+                <span class="menu-title">BVN User</span>
             </a>
         </li>
 
@@ -71,6 +71,21 @@
                 <i class="mdi mdi-lifebuoy menu-icon"></i>
                 <span class="menu-title">Support</span>
             </a>
+        </li>
+        <!-- Admin Section -->
+        <li class="nav-item">
+            <a href="#" class="nav-link" onclick="toggleSubmenu(event, 'adminSubmenu')">
+                <i class="mdi mdi-cog-outline menu-icon"></i>
+                <span class="menu-title">Manage</span>
+                <i class="mdi mdi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="sub-menu nav flex-column ps-4" id="adminSubmenu">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.services.index') }}">
+                        <i class="mdi mdi-pencil menu-icon"></i> Services
+                    </a>
+                </li>
+            </ul>
         </li>
 
         <!-- Logout Section -->
