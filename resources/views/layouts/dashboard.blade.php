@@ -80,7 +80,7 @@
         .sidebar .sub-menu {
             display: none;
             padding-left: 2rem;
-            background-color: #fff;
+            background-color: #09848a;
         }
 
         .sidebar .sub-menu.show {
