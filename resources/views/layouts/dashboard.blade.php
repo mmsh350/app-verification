@@ -80,7 +80,7 @@
         .sidebar .sub-menu {
             display: none;
             padding-left: 2rem;
-            background-color: #111;
+            background-color: #09848a;
         }
 
         .sidebar .sub-menu.show {
@@ -137,8 +137,8 @@
 
 
             <div class="loader-demo-box mb-5" style="height:0px; border:0px !important;">
-                        <div class="circle-loader"></div>
-                      </div>
+                <div class="circle-loader"></div>
+            </div>
 
 
             <h6 class="loader-text">
@@ -194,7 +194,6 @@
             submenu.classList.toggle('show');
         }
     </script>
-
     <!-- endinject -->
 
     <!-- Custom js for this page-->
