@@ -63,8 +63,7 @@
 
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-1 mb-2">
 
-                                                <small class="text-danger">Our IPE request process is fully automated.
-                                                    Please note that it may take up to 5 hours to receive a response. You
+                                                <small class="text-danger">Our IPE request process is fully automated. You
                                                     can track the status of your request using the 'Check Status' button
                                                 </small><br />
 
