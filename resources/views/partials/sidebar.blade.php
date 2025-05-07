@@ -44,6 +44,19 @@
                 <span class="menu-title">Verify NIN</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.verify-nin-phone') }}">
+                <i class="mdi mdi-phone menu-icon"></i>
+                <span class="menu-title">Verify NIN PHONE</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.ipe') }}">
+                <i class="mdi mdi-magnify menu-icon"></i>
+                <span class="menu-title">IPE</span>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('user.verify-bvn') }}">

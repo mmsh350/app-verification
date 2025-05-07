@@ -6,6 +6,7 @@ use App\Http\Repositories\NIN_PDF_Repository;
 use App\Http\Repositories\BVN_PDF_Repository;
 use App\Http\Repositories\VirtualAccountRepository;
 use App\Http\Repositories\WalletRepository;
+use App\Models\IpeRequest;
 use App\Models\Service;
 use App\Models\Verification;
 use App\Models\Wallet;
@@ -23,6 +24,24 @@ class VerificationController extends Controller
     {
         $this->transactionService = $transactionService;
         $this->loginId = auth()->user()->id;
+    }
+
+    public function ShowIpe()
+    {
+        $serviceCodes = ['112'];
+        $services = Service::whereIn('service_code', $serviceCodes)
+            ->get()
+            ->keyBy('service_code');
+
+        // Extract specific service fees
+        $ServiceFee = $services->get('112') ?? 0.00;
+
+        $ipes = IpeRequest::where('user_id',  $this->loginId)
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+
+        return view('verification.ipe', compact('ServiceFee',  'ipes'));
     }
 
     public function ninPersonalize()
@@ -69,7 +88,23 @@ class VerificationController extends Controller
 
         return view('verification.bvn-verify', compact('BVNFee', 'bvn_standard_fee', 'bvn_premium_fee', 'bvn_plastic_fee'));
     }
+    public function phoneVerify()
+    {
 
+        $serviceCodes = ['111', '105', '106', '107'];
+        $services = Service::whereIn('service_code', $serviceCodes)
+            ->get()
+            ->keyBy('service_code');
+
+        // Extract specific service fees
+        $ServiceFee = $services->get('111') ?? 0.00;
+        $standard_nin_fee = $services->get('106') ?? 0.00;
+        $regular_nin_fee = $services->get('105') ?? 0.00;
+        $premium_nin_fee = $services->get('107') ?? 0.00;
+
+
+        return view('verification.nin-phone-verify', compact('ServiceFee', 'standard_nin_fee', 'premium_nin_fee', 'regular_nin_fee'));
+    }
     private function createAccounts($userId)
     {
 
@@ -285,7 +320,277 @@ class VerificationController extends Controller
             }
         }
     }
+    public function ninPhoneRetrieve(Request $request)
+    {
 
+        $request->validate(
+            ['nin' => 'required|numeric|digits:11'],
+            [
+                'nin.required' => 'The Phone number is required.',
+                'nin.numeric' => 'The Phone number must be a numeric value.',
+                'nin.digits' => 'The Phone must be exactly 11 digits.',
+            ]
+        );
+
+        //NIN Services Fee
+        $ServiceFee = 0;
+
+        $ServiceFee = Service::where('service_code', '111')
+            ->where('status', 'enabled')
+            ->first();
+
+        if (!$ServiceFee)
+            return response()->json([
+                'message' => 'Error',
+                'errors' => ['Service Error' => 'Sorry Action not Allowed !'],
+            ], 422);
+
+        $ServiceFee = $ServiceFee->amount;
+
+        $loginUserId = auth()->user()->id;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $loginUserId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance < $ServiceFee) {
+            return response()->json([
+                'message' => 'Error',
+                'errors' => ['Wallet Error' => 'Sorry Wallet Not Sufficient for Transaction !'],
+            ], 422);
+        } else {
+
+            try {
+
+                $data = ['phone' => $request->input('nin')];
+
+                $url = env('BASE_URL_VERIFY_USER') . 'api/v1/verify-phone';
+                $token = env('VERIFY_USER_TOKEN');
+
+                $headers = [
+                    'Accept: application/json, text/plain, */*',
+                    'Content-Type: application/json',
+                    "Authorization: Bearer $token",
+                ];
+
+                // Initialize cURL
+                $ch = curl_init();
+
+                // Set cURL options
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+                // Execute request
+                $response = curl_exec($ch);
+
+                // Check for cURL errors
+                if (curl_errno($ch)) {
+                    throw new \Exception('cURL Error: ' . curl_error($ch));
+                }
+
+                // Close cURL session
+                curl_close($ch);
+
+
+                $response = json_decode($response, true);
+
+
+
+                if (isset($response['respCode']) && $response['respCode'] == '000') {
+
+                    $data = $response['message'];
+
+                    $this->processResponseDataForNINPhone($data);
+
+                    $balance = $wallet->balance - $ServiceFee;
+
+                    Wallet::where('user_id', $loginUserId)
+                        ->update(['balance' => $balance]);
+
+                    $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+                    $this->transactionService->createTransaction($loginUserId, $ServiceFee, 'NIN Phone Verification', $serviceDesc,  'Wallet', 'Approved');
+
+                    return json_encode(['status' => 'success', 'data' => $data]);
+                } else if ($response['respCode'] == '103') {
+
+                    return response()->json([
+                        'status' => 'Not Found',
+                        'errors' => ['Succesfully Verified with ( NIN do not exist)'],
+                    ], 422);
+                } else {
+                    return response()->json([
+                        'status' => 'Verification Failed',
+                        'errors' => ['Verification Failed: No need to worry, your wallet remains secure and intact. Please try again or contact support for assistance.'],
+                    ], 422);
+                }
+            } catch (\Exception $e) {
+                return response()->json([
+                    'status' => 'Request failed',
+                    'errors' => ['An error occurred while making the API request'],
+                ], 422);
+            }
+        }
+    }
+    public function ipeRequest(Request $request)
+    {
+        $request->validate([
+            'trackingId' => 'required|alpha_num|size:15',
+        ]);
+
+        //NIN Services Fee
+        $ServiceFee = 0;
+
+        $ServiceFee = Service::where('service_code', '112')
+            ->where('status', 'enabled')
+            ->first();
+
+        if (!$ServiceFee)
+            return redirect()->route('user.ipe')
+                ->with('error', 'Sorry Action not Allowed !');
+
+        $ServiceFee = $ServiceFee->amount;
+
+        $loginUserId = auth()->user()->id;
+
+        //Check if wallet is funded
+        $wallet = Wallet::where('user_id', $loginUserId)->first();
+        $wallet_balance = $wallet->balance;
+        $balance = 0;
+
+        if ($wallet_balance < $ServiceFee) {
+
+            return redirect()->route('user.ipe')
+                ->with('error', 'Sorry Wallet Not Sufficient for Transaction !');
+        } else {
+
+            try {
+
+                $data = ['trackingId' => $request->input('trackingId')];
+
+                $url = env('BASE_URL_VERIFY_USER') . 'api/v1/ipe';
+                $token = env('VERIFY_USER_TOKEN');
+
+                $headers = [
+                    'Accept: application/json, text/plain, */*',
+                    'Content-Type: application/json',
+                    "Authorization: Bearer $token",
+                ];
+
+                // Initialize cURL
+                $ch = curl_init();
+
+                // Set cURL options
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+                // Execute request
+                $response = curl_exec($ch);
+
+                // Check for cURL errors
+                if (curl_errno($ch)) {
+                    throw new \Exception('cURL Error: ' . curl_error($ch));
+                }
+
+                // Close cURL session
+                curl_close($ch);
+
+                $response = json_decode($response, true);
+
+                if (isset($response['respCode']) && $response['respCode'] == '000') {
+
+                    $this->processResponseDataIpe($loginUserId, $request->input('trackingId'));
+
+                    $balance = $wallet->balance - $ServiceFee;
+
+                    Wallet::where('user_id', $loginUserId)
+                        ->update(['balance' => $balance]);
+
+                    $serviceDesc = 'Wallet debitted with a service fee of ₦' . number_format($ServiceFee, 2);
+
+                    $this->transactionService->createTransaction($loginUserId, $ServiceFee, 'IPE Request', $serviceDesc,  'Wallet', 'Approved');
+
+                    return redirect()->route('user.ipe')
+                        ->with('success', 'IPE request is successful');
+                } else if ($response['respCode'] == '103') {
+                    return redirect()->route('user.ipe')
+                        ->with('error', 'IPE request is not successful');
+                } else {
+                    return redirect()->route('user.ipe')
+                        ->with('error', 'IPE request is not successful');
+                }
+            } catch (\Exception $e) {
+                return redirect()->route('user.ipe')
+                    ->with('error', 'An error occurred while making the API request');
+            }
+        }
+    }
+
+    public function ipeRequestStatus($trackingId)
+    {
+        try {
+
+            $data = ['idNumber' => $trackingId, "consent" => true];
+
+            $url = env('BASE_API_URL') . '/api/ipestatus/index.php';
+            $token = env('VERIFY_BEARER');
+
+            $headers = [
+                'Accept: application/json, text/plain, */*',
+                'Content-Type: application/json',
+                "Authorization: Bearer $token",
+            ];
+
+            // Initialize cURL
+            $ch = curl_init();
+
+            // Set cURL options
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+
+            // Execute request
+            $response = curl_exec($ch);
+
+            // Check for cURL errors
+            if (curl_errno($ch)) {
+                throw new \Exception('cURL Error: ' . curl_error($ch));
+            }
+
+            // Close cURL session
+            curl_close($ch);
+
+            $response = json_decode($response, true);
+
+            if (isset($response['status']) && $response['status'] === true) {
+
+                IpeRequest::where('trackingId', $trackingId)
+                    ->update(['reply' => $response['reply'] ?? '']);
+
+                return redirect()->route('user.ipe')
+                    ->with('success', 'IPE request is successful, check the reply section');
+            } elseif (isset($response['status']) && $response['status'] === false) {
+                return redirect()->route('user.ipe')
+                    ->with('error',  $response['message'] . ' - Please dont resend it might still be processing');
+            } else {
+                return redirect()->route('user.ipe')
+                    ->with('error', 'Unexpected error occurred');
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->route('user.ipe')
+                ->with('error', 'An error occurred while making the API request');
+        }
+    }
     public function bvnRetrieve(Request $request)
     {
 
@@ -572,6 +877,55 @@ class VerificationController extends Controller
             'address' => $data['address'],
             'photo' => $data['face'],
         ]);
+    }
+    public function processResponseDataForNINPhone($data)
+    {
+
+        try {
+            $user = Verification::create([
+                'idno' => $data['nin'],
+                'type' => 'NIN',
+                'nin' => $data['nin'],
+                'trackingId' => $data['trackingId'],
+                'first_name' => $data['firstname'],
+                'middle_name' => $data['middlename'],
+                'last_name' => $data['surname'],
+                'phoneno' => $data['telephoneno'],
+                'dob' => \Carbon\Carbon::createFromFormat('d-m-Y', $data['birthdate'])->format('Y-m-d'),
+                'gender' => $data['gender'] == 'm' || $data['gender'] == 'Male' ? 'Male' : 'Female',
+                'state' => $data['self_origin_state'],
+                'lga' => $data['self_origin_lga'],
+                'address' => $data['residence_AdressLine1'],
+                'photo' => $data['image'],
+            ]);
+        } catch (\Exception $e) {
+
+            Log::error('Verification creation failed: ' . $e->getMessage());
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to create verification record.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function processResponseDataIpe($userId, $trackingNo)
+    {
+        try {
+            IpeRequest::create([
+                'user_id' => $userId,
+                'trackingId' => $trackingNo,
+            ]);
+        } catch (\Exception $e) {
+
+            Log::error('Request creation failed: ' . $e->getMessage());
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to create Ipe Request.',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
     public function regularSlip($nin_no)
     {
