@@ -453,10 +453,8 @@ class VerificationController extends Controller
             ->first();
 
         if (!$ServiceFee)
-            return response()->json([
-                'message' => 'Error',
-                'errors' => ['Service Error' => 'Sorry Action not Allowed !'],
-            ], 422);
+            return redirect()->route('user.ipe')
+                ->with('error', 'Sorry Action not Allowed !');
 
         $ServiceFee = $ServiceFee->amount;
 
@@ -468,10 +466,9 @@ class VerificationController extends Controller
         $balance = 0;
 
         if ($wallet_balance < $ServiceFee) {
-            return response()->json([
-                'message' => 'Error',
-                'errors' => ['Wallet Error' => 'Sorry Wallet Not Sufficient for Transaction !'],
-            ], 422);
+
+            return redirect()->route('user.ipe')
+                ->with('error', 'Sorry Wallet Not Sufficient for Transaction !');
         } else {
 
             try {
@@ -526,22 +523,15 @@ class VerificationController extends Controller
                     return redirect()->route('user.ipe')
                         ->with('success', 'IPE request is successful');
                 } else if ($response['respCode'] == '103') {
-
-                    return response()->json([
-                        'status' => 'Failed',
-                        'errors' => ['IPE request is not successful'],
-                    ], 422);
+                    return redirect()->route('user.ipe')
+                        ->with('error', 'IPE request is not successful');
                 } else {
-                    return response()->json([
-                        'status' => 'Failed',
-                        'errors' => ['IPE request is not successful'],
-                    ], 422);
+                    return redirect()->route('user.ipe')
+                        ->with('error', 'IPE request is not successful');
                 }
             } catch (\Exception $e) {
-                return response()->json([
-                    'status' => 'Request failed',
-                    'errors' => ['An error occurred while making the API request'],
-                ], 422);
+                return redirect()->route('user.ipe')
+                    ->with('error', 'An error occurred while making the API request');
             }
         }
     }
