@@ -15,7 +15,6 @@ Route::get('/', function () {
     return redirect()->away('https://usseytech.com.ng/auth/login');
 });
 
-
 Route::post('/palmpay/webhook', [PaymentWebhookController::class, 'handlePalmPay']);
 
 Route::post('/update-bvn-enrollment-status', [EnrollmentSyncController::class, 'updateStatus']);
