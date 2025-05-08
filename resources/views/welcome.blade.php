@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="{{ asset('assets/images/img/logo1.png') }}" type="image">
+    <link rel="icon" href="{{ asset('assets/images/img/logo.png') }}" type="image">
     <style>
         /* Apply Inter font globally */
         body {
@@ -463,7 +463,7 @@
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <div class="space-y-8 xl:col-span-1">
-                    <img src="{{ asset('assets/images/img/logo1.png') }}" alt="Logo" class="h-20 w-auto" />
+                    <img src="{{ asset('assets/images/img/logo.png') }}" alt="Logo" class="h-20 w-auto" />
                     <p class="text-gray-400 text-base">
                         Making the digital world better, one project at a time.
                     </p>
