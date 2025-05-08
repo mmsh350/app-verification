@@ -203,7 +203,7 @@
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
                                             <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                                style="width: 70px; height: 70px; background-color:#bf1066">
                                                 <i class="bi bi-phone text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
@@ -218,7 +218,7 @@
                                     <div class="card-body text-center p-3">
                                         <div class="icon-box mb-3">
                                             <div class="icon-box-media mx-auto d-flex align-items-center justify-content-center bg-primary rounded-circle"
-                                                style="width: 70px; height: 70px;">
+                                                style="width: 70px; height: 70px; background-color:#bf1066">
                                                 <i class="bi bi-search text-white" style="font-size: 35px;"></i>
                                             </div>
                                         </div>
