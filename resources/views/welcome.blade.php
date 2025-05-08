@@ -151,7 +151,7 @@
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
                     <img src="{{ asset('assets/images/img/logo1.png') }}" alt="Logo" class="h-8 w-auto" />
-                    <span class="ml-2 text-xl font-semibold text-gray-700"> Hanan Cafe</span>
+                    <span class="ml-2 text-xl font-semibold text-gray-700">Hanan Cafe</span>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
                     <a href="#"
@@ -517,7 +517,8 @@
                 </div>
             </div>
             <div class="mt-12 border-t border-gray-700 pt-8">
-                <p class="text-base text-gray-400 xl:text-center">&copy; {{ date('Y') }} Hanan Cafe Inc. All rights reserved.
+                <p class="text-base text-gray-400 xl:text-center">&copy; {{ date('Y') }} Hanan Cafe Inc. All
+                    rights reserved.
                 </p>
             </div>
         </div>
