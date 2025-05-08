@@ -12,7 +12,7 @@ use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->away('https://usseytech.com.ng/auth/login');
 });
 
 
