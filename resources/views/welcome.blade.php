@@ -150,7 +150,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <img src="{{ asset('assets/images/img/logo1.png') }}" alt="Logo" class="h-8 w-auto" />
+                    <img src="{{ asset('assets/images/img/logo1.jpg') }}" alt="Logo" class="h-8 w-auto" />
                     <span class="ml-2 text-xl font-semibold text-gray-700">Hanan Cafe</span>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
