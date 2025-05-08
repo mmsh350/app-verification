@@ -11,13 +11,10 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', function () {
-    return redirect()->away('https://usseytech.com.ng/auth/login');
+    return view('welcome');
 });
+
 
 Route::post('/palmpay/webhook', [PaymentWebhookController::class, 'handlePalmPay']);
 
@@ -47,9 +44,18 @@ Route::middleware(['auth', 'user.active'])->group(function () {
 
         Route::middleware(['user.active', 'user.is_kyced'])->group(function () {
             Route::get('/verify-nin', [VerificationController::class, 'ninVerify'])->name('verify-nin');
+            Route::get('/verify-nin-phone', [VerificationController::class, 'phoneVerify'])->name('verify-nin-phone');
             Route::get('/verify-bvn', [VerificationController::class, 'bvnVerify'])->name('verify-bvn');
             Route::get('/nin-personalize', [VerificationController::class, 'ninPersonalize'])->name('personalize-nin');
+            Route::get('/ipe', [VerificationController::class, 'showIpe'])->name('ipe');
             Route::get('/bvn-enrollment', [EnrollmentController::class, 'bvnEnrollment'])->name('bvn-enrollment');
+
+            //Ipe request
+
+            Route::post('/ipe-request', [VerificationController::class, 'ipeRequest'])->name('ipe-request');
+
+            Route::get('/ipeStatus/{id}', [VerificationController::class, 'ipeRequestStatus'])->name('ipeStatus');
+
 
             //Enrollment-----------------------------------------------------------------------------------------------------
             Route::post('/bvn-enrollment', [EnrollmentController::class, 'enrollBVN'])->name('enroll-bvn');
@@ -63,6 +69,7 @@ Route::middleware(['auth', 'user.active'])->group(function () {
             //Verification-----------------------------------------------------------------------------------------------------
             //NIN
             Route::post('/nin-retrieve', [VerificationController::class, 'ninRetrieve'])->name('ninRetrieve');
+            Route::post('/nin-phone-retrieve', [VerificationController::class, 'ninPhoneRetrieve'])->name('ninPhoneRetrieve');
             Route::post('/nin-track-retrieve', [VerificationController::class, 'ninTrackRetrieve'])->name('ninTrackRetrieve');
             //BVN
             Route::post('/bvn-retrieve', [VerificationController::class, 'bvnRetrieve'])->name('bvnRetrieve');
