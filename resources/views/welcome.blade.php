@@ -349,8 +349,7 @@
                         <div class="space-y-4 text-gray-600 fade-in delay-5">
                             <p>
                                 <strong class="font-medium text-gray-800">Address:</strong><br>
-                                No. 67 Iyabo Owo Road, Lekki Phase 2,<br>
-                                Lekki, Lagos
+                                tashar Rimi street opposite airtel shop zuru
                             </p>
                             <p>
                                 <strong class="font-medium text-gray-800">Phone:</strong><br>
