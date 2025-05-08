@@ -202,7 +202,7 @@
                             to have you here.
                         </p>
                         <div class="mt-8 flex gap-4 justify-center lg:justify-start fade-in delay-3">
-                            <a href="{{ route('auth.login') }}"
+                            <a href="#"
                                 style="
                             display: inline-block;
                             border-radius: 0.5rem;
@@ -216,7 +216,7 @@
                         ">
                                 Login
                             </a>
-                            <a href="{{ route('auth.register') }}"
+                            <a href="#"
                                 style="
                             display: inline-block;
                             border-radius: 0.5rem;
