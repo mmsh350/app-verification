@@ -18,10 +18,10 @@
         <div class="row flex-grow">
             <div class="col-lg-6 d-flex align-items-center justify-content-center">
                 <div class="auth-form-transparent text-start p-3">
-                    <div class="brand-logo">
+                    {{-- <div class="brand-logo">
                         <img src="{{ asset('assets/images/' . $settings->logo ?? 'assets/images/logo.svg') }}" alt="logo">
-                    </div>
-                    <h4>New here?</h4>
+                    </div> --}}
+                    <h4 class="mt-3">New here?</h4>
                     <h6 class="fw-light">Join us today! It takes only a few steps</h6>
 
                     @include('common.message')

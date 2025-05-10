@@ -17,8 +17,8 @@ class SiteSettingFactory extends Factory
     public function definition(): array
     {
         return [
-            'site_name' => 'AA Taska Verification Site',
-            'short_name' => 'AA TASKA',
+            'site_name' => 'Roman Verification and agency services',
+            'short_name' => 'ROMAN TECH',
             'logo' => 'logo.png',
             'mini_logo' => 'mini-logo.png',
             'login_background_image' => 'login-bg-1.jpg',

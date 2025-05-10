@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
 
 
        User::updateOrCreate(
-        ['email' => 'admin@aataskarbege.com.ng'],
+        ['email' => 'admin@romcheck.com.ng'],
         [
             'name' => 'AA Taska Admin',
             'email_verified_at' => now(),

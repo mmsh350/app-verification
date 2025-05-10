@@ -7,11 +7,11 @@
         <div class="row flex-grow">
             <div class="col-lg-6 d-flex align-items-center justify-content-center">
                 <div class="auth-form-transparent text-start p-3">
-                    <div class="brand-logo">
+                    {{-- <div class="brand-logo">
                         <a href="{{ url('/') }}"> <img
                                 src="{{ asset('assets/images/' . $settings->logo ?? 'assets/images/logo.svg') }}"
                                 alt="logo"></a>
-                    </div>
+                    </div> --}}
                     <h4>Welcome back!</h4>
                     <h6 class="fw-light">Happy to see you again!</h6>
 
@@ -82,6 +82,7 @@
                         <div class="text-center mt-4 fw-light">
                             Don't have an account? <a href="{{ route('auth.register') }}" class="text-primary">Create</a>
                         </div>
+                        <p class="text-center mt-2"> <a href="{{ url('/') }}">Go to Back</a></p>
                     </form>
                 </div>
             </div>
