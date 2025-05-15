@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NIN TRUST - National Identity Verification Solutions</title>
+    <title>NIN TRUST - Identity Verification Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="{{ asset('assets/images/img/favicon.png') }}" type="image">
+    <link rel="icon" href="{{ asset('assets/images/img/logo.png') }}" type="image">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -143,7 +143,7 @@
                 <div class="text-center">
                     <h2 class="text-sm brand-color font-semibold uppercase tracking-wide">Our Services</h2>
                     <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                        Official Identity Verification Solutions
+                        Identity Verification Solutions
                     </p>
                 </div>
 
@@ -188,9 +188,10 @@
                                     d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">Document Services</h3>
-                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Official document processing and
-                            verification services</p>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">BVN enrolment access
+                        </h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">OBecome a bvn enrolment agent and get
+                            access for enrolling customers and get commision</p>
                     </div>
 
                     <!-- Government Service -->
@@ -203,9 +204,9 @@
                                     d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">Government Services</h3>
-                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Authorized government registration and
-                            verification services</p>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">Register Your Business</h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Upgrade your business With CAC
+                            registration.</p>
                     </div>
                 </div>
             </div>
@@ -227,9 +228,9 @@
                             <h3 class="text-lg font-semibold text-gray-900">Support Information</h3>
                             <div class="mt-4 space-y-2 text-gray-600">
                                 <p>Email: <a href="mailto:support@nintrust.gov.ng"
-                                        class="brand-color hover:underline">support@nintrust.gov.ng</a></p>
-                                <p>Phone: <a href="tel:+234700NINTRUST" class="brand-color hover:underline">+234 700
-                                        NIN TRUST</a></p>
+                                        class="brand-color hover:underline">nintrust001@gmail.com</a></p>
+                                <p>Phone: <a href="tel:+234700NINTRUST"
+                                        class="brand-color hover:underline">XX-XXX-XXXX</a></p>
                             </div>
                         </div>
                     </div>
@@ -266,7 +267,7 @@
     <footer class="bg-gray-800 text-gray-400 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <img src="{{ asset('assets/images/img/logo.png') }}" alt="NIN TRUST Logo" class="h-16 mx-auto">
+                <img src="{{ asset('assets/images/img/logo2.png') }}" alt="NIN TRUST Logo" class="h-16 mx-auto">
                 <p class="mt-4 text-sm">
                     National Identity Verification and Trust Services
                 </p>
@@ -293,7 +294,7 @@
                     &copy; {{ date('Y') }} NIN TRUST. All rights reserved.
                 </p>
                 <p class="text-xs text-gray-500 mt-1">
-                    An official identity verification partner
+                    Identity verification partner
                 </p>
             </div>
         </div>

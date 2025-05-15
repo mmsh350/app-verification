@@ -26,105 +26,152 @@
     <style>
         /* Sidebar base styling */
         .sidebar {
-            background-color: #0db4bd;
-            color: #ecf0f1;
-            font-family: Arial, sans-serif;
-            /* height: 100vh; */
+            background-color: #082851;
+            /* Your brand navy */
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            /* Matching your main font */
             padding-top: 7px;
             padding-bottom: 10px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar .nav-item {
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            /* Subtle divider */
+            margin: 0 10px;
         }
 
         .sidebar .nav-link {
-            padding: 15px 25px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
-            font-size: 16px;
-            color: #ecf0f1;
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.9);
             text-transform: uppercase;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border-radius: 4px;
+            margin: 2px 0;
         }
 
         .sidebar .nav-link:hover {
-            background-color: #09848a;
-            /* color: #3498db; */
+            background-color: rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            transform: translateX(3px);
         }
 
         .sidebar .nav-link.active {
-            background-color: #09848a;
-            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-weight: 600;
+            border-left: 3px solid #ffffff;
         }
 
         .sidebar .nav .nav-item .nav-link .menu-title {
-            color: #fff;
+            color: inherit;
         }
 
         .sidebar .menu-icon {
-            margin-right: 15px;
-            font-size: 20px;
+            margin-right: 12px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .sidebar .menu-title {
             font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
-        /* Remove sub-menu and nested styling
+        /* Sub-menu styling */
         .sidebar .sub-menu {
             display: none;
-        } */
-        .sidebar .sub-menu {
-            display: none;
-            padding-left: 2rem;
-            background-color: #09848a;
+            padding-left: 1.5rem;
+            background-color: rgba(8, 40, 81, 0.8);
+            /* Darker navy */
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .sidebar .sub-menu.show {
             display: block;
+            animation: fadeIn 0.3s ease;
         }
 
-        /* For collapsible section, remove icon rotation */
-        .menu-arrow {
-            display: none;
+        .sidebar .sub-menu .nav-link {
+            padding: 12px 20px;
+            font-size: 14px;
+            text-transform: none;
+            color: rgba(255, 255, 255, 0.8);
         }
 
-        /* Hide sidebar-profile-info when sidebar is collapsed */
-        .sidebar-collapse-hide {
-            display: block;
-            /* Show by default */
+        .sidebar .sub-menu .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
-        /* Hide sidebar-profile-info when sidebar is collapsed */
-        .sidebar.collapsed .sidebar-profile-info {
-            display: none !important;
+        /* Profile section */
+        .sidebar-profile {
+            background-color: rgba(0, 0, 0, 0.15);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .sidebar-profile-info {
+            color: #ffffff;
+        }
+
+        .sidebar-profile-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-profile-email small {
+            opacity: 0.8;
+            font-size: 0.85rem;
+        }
+
+        /* Collapsed state */
+        .sidebar.collapsed .sidebar-profile-info,
         .sidebar.collapsed .sidebar-profile {
             display: none !important;
         }
 
-        .truncate-text {
-            display: block;
-            max-width: 100%;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 15px 10px;
         }
 
-        .sidebar-profile-name,
-        .sidebar-profile-email small {
-            font-size: 0.9rem;
+        .sidebar.collapsed .menu-title {
+            display: none;
         }
 
-        @media (max-width: 576px) {
+        .sidebar.collapsed .menu-icon {
+            margin-right: 0;
+            font-size: 20px;
+        }
 
-            .sidebar-profile-name,
-            .sidebar-profile-email small {
-                font-size: 0.8rem;
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .sidebar {
+                padding-top: 5px;
+            }
+
+            .sidebar .nav-link {
+                padding: 12px 15px;
+                font-size: 14px;
             }
         }
     </style>
