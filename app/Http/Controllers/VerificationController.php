@@ -12,6 +12,7 @@ use App\Models\Service;
 use App\Models\Verification;
 use App\Models\Wallet;
 use App\Services\TransactionService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -507,7 +508,7 @@ class VerificationController extends Controller
 
                 $response = json_decode($response, true);
 
-                if (isset($response['respCode']) && $response['respCode'] == '000') {
+                if (isset($response['status']) && $response['status'] === true) {
 
                     $this->processResponseDataIpe($loginUserId, $request->input('trackingId'));
 
@@ -522,9 +523,6 @@ class VerificationController extends Controller
 
                     return redirect()->route('user.ipe')
                         ->with('success', 'IPE request is successful');
-                } else if ($response['respCode'] == '103') {
-                    return redirect()->route('user.ipe')
-                        ->with('error', 'IPE request is not successful');
                 } else {
                     return redirect()->route('user.ipe')
                         ->with('error', 'IPE request is not successful');
@@ -584,6 +582,42 @@ class VerificationController extends Controller
 
                     return redirect()->route('user.ipe')
                         ->with('success', 'IPE request is successful, check the reply section');
+                } elseif ($data['resp_code'] === '400') {
+
+                    //process refund & NIN Services Fee
+                    $ServiceFee = 0;
+
+                    $ServiceFee = Service::where('service_code', '112')
+                        ->where('status', 'enabled')
+                        ->first();
+
+                    if (!$ServiceFee)
+                        return redirect()->route('user.ipe')
+                            ->with('error', 'Sorry Action not Allowed !');
+
+                    $ServiceFee = $ServiceFee->amount;
+
+                    $wallet = Wallet::where('user_id',   $this->loginId)->first();
+
+                    $balance = $wallet->balance + $ServiceFee;
+
+                    // Check if already refunded
+                    $refunded = IpeRequest::where('trackingId', $trackingId)
+                        ->whereNull('refunded_at')
+                        ->first();
+
+                    if ($refunded) {
+                        Wallet::where('user_id', $this->loginId)
+                            ->update(['balance' => $balance]);
+
+                        IpeRequest::where('trackingId', $trackingId)
+                            ->update(['refunded_at' => Carbon::now()]);
+
+                        $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'IPE Refund', "IPE Refund for Tracking ID: {$trackingId}",  'Wallet', 'Approved');
+                    }
+
+                    return redirect()->route('user.ipe')
+                        ->with('error',  $response['message']);
                 } else {
                     return redirect()->route('user.ipe')
                         ->with('error',  $response['message']);
