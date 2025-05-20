@@ -102,7 +102,7 @@
                                                                 <td>{{ $data->trackingId }}</td>
                                                                 <td>{{ $data->reply }}</td>
                                                                 <td class="text-center">
-                                                                    @if (is_null($data->reply) && is_null($data->refunded_at))
+                                                                    @if (is_null($data->reply))
                                                                         <a href="{{ route('user.ipeStatus', [$data->trackingId]) }}"
                                                                             class="btn btn-sm btn-primary">
                                                                             Check Status

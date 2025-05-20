@@ -611,7 +611,7 @@ class VerificationController extends Controller
                             ->update(['balance' => $balance]);
 
                         IpeRequest::where('trackingId', $trackingId)
-                            ->update(['refunded_at' => Carbon::now()]);
+                            ->update(['refunded_at' => Carbon::now(), 'reply' => 'Refunded']);
 
                         $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'IPE Refund', "IPE Refund for Tracking ID: {$trackingId}",  'Wallet', 'Approved');
                     }
