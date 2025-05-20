@@ -1,31 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AA Taska Easy way of making agency services</title>
+    <title>NIN TRUST - Identity Verification Solutions</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#e6f7f9',
-                            100: '#cceff3',
-                            500: '#0db4bd',
-                            600: '#0b96a0',
-                            700: '#097883',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="{{ asset('assets/images/img/icon/logo.jpg') }}" type="image">
+    <link rel="icon" href="{{ asset('assets/images/img/logo.png') }}" type="image">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -42,7 +26,6 @@
             justify-content: center;
             align-items: center;
             z-index: 9999;
-            opacity: 1;
             transition: opacity 0.5s ease-out;
         }
 
@@ -53,7 +36,7 @@
 
         .loader {
             border: 6px solid #f3f3f3;
-            border-top: 6px solid #0db4bd;
+            border-top: 6px solid #082851;
             border-radius: 50%;
             width: 60px;
             height: 60px;
@@ -61,264 +44,218 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .brand-color {
+            color: #082851;
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
-            opacity: 0;
+        .brand-bg {
+            background-color: #082851;
         }
 
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-        .delay-5 { animation-delay: 1.0s; }
-        .delay-6 { animation-delay: 1.2s; }
-        .delay-7 { animation-delay: 1.4s; }
-        .delay-8 { animation-delay: 1.6s; }
+        .brand-border {
+            border-bottom: 2px solid #082851;
+        }
 
-        .fade-in.delay-1, .fade-in.delay-2, .fade-in.delay-3, .fade-in.delay-4,
-        .fade-in.delay-5, .fade-in.delay-6, .fade-in.delay-7, .fade-in.delay-8 {
-             opacity: 0;
+        .brand-gradient {
+            background: linear-gradient(135deg, #08285133 0%, #ffffff 50%, #08285133 100%);
+        }
+
+        a[href^="mailto:"]:hover {
+            color: #082851;
+        }
+
+        .hover\:brand-bg:hover {
+            background-color: #082851;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-primary-50 via-white to-primary-50 text-gray-800 antialiased">
 
+<body class="brand-gradient text-gray-800 antialiased">
+
+    <!-- Loader -->
     <div id="loader-wrapper">
         <div class="loader"></div>
     </div>
 
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50 fade-in">
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex-shrink-0 flex items-center">
-                    <svg class="h-8 w-auto text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                    </svg>
-                    <span class="ml-2 text-xl font-semibold text-gray-700">Welcome to AA Taska</span>
+                    <img src="{{ asset('assets/images/img/logo.png') }}" alt="NIN TRUST Logo" class="h-8 w-auto">
+                    <span class="ml-2 text-xl font-semibold text-gray-700">NIN TRUST</span>
                 </div>
                 <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                    <a href="#" class="border-primary-500 text-gray-900 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Home</a>
-                    <a href="#services" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Services</a>
-                    <a href="#services" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">About</a>
-                    <a href="#contact" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">Contact</a>
+                    <a href="#" class="text-gray-900 brand-border px-1 pt-1 text-sm font-medium">Home</a>
+                    <a href="#services"
+                        class="text-gray-600 hover:text-gray-900 px-1 pt-1 text-sm font-medium">Services</a>
+                    <a href="#contact"
+                        class="text-gray-600 hover:text-gray-900 px-1 pt-1 text-sm font-medium">Contact</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main class="overflow-hidden">
-        <section class="relative py-20 sm:py-28 lg:py-32">
-            <div class="absolute inset-0 bg-gradient-to-b from-white via-transparent to-transparent opacity-50 z-0"></div>
-            <div class="absolute top-0 left-0 -translate-x-1/3 -translate-y-1/3 z-0 opacity-30">
-                <div class="w-64 h-64 bg-primary-100 rounded-full filter blur-3xl"></div>
-            </div>
-            <div class="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 z-0 opacity-30">
-                <div class="w-80 h-80 bg-primary-200 rounded-full filter blur-3xl"></div>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <!-- Hero Section -->
+        <section class="relative py-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
                     <div class="lg:col-span-6 text-center lg:text-left">
-                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 fade-in delay-1">
-                            Welcome to <span class="text-primary-500">AA Taska,</span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900">
+                            Secure Verification Services by <span class="brand-color">NIN TRUST</span>
                         </h1>
-                        <p class="mt-4 text-lg sm:text-xl text-gray-600 fade-in delay-2">
-                            Discover innovative solutions and services designed to elevate your experience. We're glad to have you here.
+                        <p class="mt-4 text-lg sm:text-xl text-gray-600">
+                            Professional Verification and agency services. Fast, reliable, and secure.
                         </p>
-                        <div class="mt-8 flex gap-4 justify-center lg:justify-start fade-in delay-3">
-                            <a href="{{ route ('auth.login')}}" class="inline-block rounded-lg bg-primary-500 px-5 py-3 text-base font-medium text-white shadow-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                               Login
+                        <div class="mt-8 flex gap-4 justify-center lg:justify-start">
+                            <a href="{{ route('auth.login') }}"
+                                class="brand-bg text-white px-6 py-3 rounded-lg font-medium shadow-lg hover:opacity-90 transition-all">
+                                Login Portal
                             </a>
-                            <a href="{{ route ('auth.register')}}" class="inline-block rounded-lg bg-white px-5 py-3 text-base font-medium text-primary-500 shadow-md ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                                Register
+                            <a href="{{ route('auth.register') }}"
+                                class="border-2 border-[#082851] px-6 py-3 rounded-lg font-medium hover:bg-[#08285111] hover:text-white transition-all">
+                                Register Now
                             </a>
                         </div>
                     </div>
-
-                    <div class="mt-12 lg:mt-0 lg:col-span-5 flex justify-center lg:justify-end fade-in delay-4">
-                         <img
-                            src="{{ asset('assets/images/img/icon/img01.jpg')}}"
-                            alt="Abstract welcome graphic"
-                            class="rounded-xl shadow-2xl object-cover w-full max-w-md lg:max-w-none"
-                            onerror="this.onerror=null; this.src='{{ asset('assets/images/img/icon/img01.jpg')}}"
-                         >
+                    <div class="mt-6 lg:mt-0 lg:col-span-6 flex justify-center">
+                        <img src="{{ asset('assets/images/img/verification-hero.png') }}" alt="Verification Services"
+                            class="rounded-xl shadow-2xl w-full max-w-2xl">
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services" class="py-16 sm:py-24 bg-white/50 backdrop-blur-sm">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
-                    <h2 class="text-base font-semibold text-primary-500 tracking-wide uppercase fade-in delay-1">Our Services</h2>
-                    <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl fade-in delay-2">
-                        What We Offer
-                    </p>
-                    <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 fade-in delay-3">
-                        Providing top-notch solutions tailored to your needs, complete with transparent pricing.
+                    <h2 class="text-sm brand-color font-semibold uppercase tracking-wide">Our Services</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        Identity Verification Solutions
                     </p>
                 </div>
 
-                <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 fade-in delay-5">
-                        <img
-                            src="{{ asset('assets/images/img/icon/nimc.png')}}"
-                            alt="Web Development Service Image"
-                            class="h-48 w-full object-cover"
-                            onerror="this.onerror=null; this.src='{{ asset('assets/images/img/icon/nimc.png')}}';"
-                        >
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg font-medium text-gray-900">NIN services</h3>
-                            <p class="mt-1 text-sm text-gray-500 flex-grow">Verify NIN using NIN, Phone number and tracking ID</p>
+                <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- NIN Service -->
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow hover:brand-bg hover:text-white group">
+                        <div class="brand-bg w-fit p-3 rounded-lg group-hover:bg-white group-hover:text-[#082851]">
+                            <svg class="w-8 h-8 text-white group-hover:text-[#082851]" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
                         </div>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">NIN Verification</h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Instant National Identity Number
+                            verification with multiple lookup options</p>
                     </div>
 
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 fade-in delay-6">
-                         <img
-                            src="{{ asset('assets/images/img/icon/bvn.png')}}"
-                            alt="Mobile App Service Image"
-                            class="h-48 w-full object-cover"
-                            onerror="this.onerror=null; this.src='{{ asset('assets/images/img/icon/bvn.png')}}';"
-                         >
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg font-medium text-gray-900">BVN services</h3>
-                            <p class="mt-1 text-sm text-gray-500 flex-grow">Verify BVN, and download slip and bvn plastics</p>
+                    <!-- BVN Service -->
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow hover:brand-bg hover:text-white group">
+                        <div class="brand-bg w-fit p-3 rounded-lg group-hover:bg-white group-hover:text-[#082851]">
+                            <svg class="w-8 h-8 text-white group-hover:text-[#082851]" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
                         </div>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">BVN Services</h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Bank Verification Number validation and
+                            document generation</p>
                     </div>
 
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 fade-in delay-7">
-                         <img
-                            src="{{ asset('assets/images/img/icon/logo.jpg')}}"
-                            alt="Cloud Solutions Service Image"
-                            class="h-48 w-full object-cover"
-                            onerror="this.onerror=null; this.src='https://placehold.co/400x250/cccccc/ffffff?text=Cloud&font=inter';"
-                         >
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg font-medium text-gray-900">BVN enrolment access</h3>
-                            <p class="mt-1 text-sm text-gray-500 flex-grow">Become a bvn enrolment agent and get access for enrolling customers and get commision </p>
+                    <!-- Document Service -->
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow hover:brand-bg hover:text-white group">
+                        <div class="brand-bg w-fit p-3 rounded-lg group-hover:bg-white group-hover:text-[#082851]">
+                            <svg class="w-8 h-8 text-white group-hover:text-[#082851]" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
                         </div>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">BVN enrolment access
+                        </h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">OBecome a bvn enrolment agent and get
+                            access for enrolling customers and get commision</p>
                     </div>
 
-                    <div class="flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 fade-in delay-8">
-                         <img
-                            src="{{ asset('assets/images/img/icon/cac.png')}}"
-                            alt="Security Service Image"
-                            class="h-48 w-full object-cover"
-                            onerror="this.onerror=null; this.src='https://placehold.co/400x250/cccccc/ffffff?text=Security&font=inter';"
-                         >
-                        <div class="p-6 flex flex-col flex-grow">
-                            <h3 class="text-lg font-medium text-gray-900">Register Your Business</h3>
-                            <p class="mt-1 text-sm text-gray-500 flex-grow">Upgrade your business With CAC registration.</p>
+                    <!-- Government Service -->
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow hover:brand-bg hover:text-white group">
+                        <div class="brand-bg w-fit p-3 rounded-lg group-hover:bg-white group-hover:text-[#082851]">
+                            <svg class="w-8 h-8 text-white group-hover:text-[#082851]" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
                         </div>
+                        <h3 class="mt-4 text-xl font-semibold group-hover:text-white">Register Your Business</h3>
+                        <p class="mt-2 text-gray-600 group-hover:text-gray-200">Upgrade your business With CAC
+                            registration.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="py-16 sm:py-24 relative bg-gradient-to-b from-primary-50 via-white to-white">
-             <div class="absolute top-1/4 left-0 -translate-x-1/4 opacity-20">
-                <div class="w-64 h-64 bg-primary-100 rounded-full filter blur-3xl"></div>
-            </div>
-             <div class="absolute bottom-1/4 right-0 translate-x-1/4 opacity-20">
-                <div class="w-72 h-72 bg-primary-200 rounded-full filter blur-3xl"></div>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center mb-12">
-                    <h2 class="text-base font-semibold text-primary-500 tracking-wide uppercase fade-in delay-1">Contact Us</h2>
-                    <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl fade-in delay-2">
-                        Get in Touch or File a Complaint
-                    </p>
-                    <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-500 fade-in delay-3">
-                        We're here to help and answer any question you might have or listen to your feedback.
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 sm:py-5 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-sm brand-color font-semibold uppercase tracking-wide">Get Support</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                        Contact Our Team
                     </p>
                 </div>
 
-                <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-start">
-                    <div class="mb-12 lg:mb-0">
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-4 fade-in delay-4">Contact Information</h3>
-                        <div class="space-y-4 text-gray-600 fade-in delay-5">
-                            <p>
-                                <strong class="font-medium text-gray-800">Address:</strong><br>
-
-                            </p>
-                            <p>
-                                <strong class="font-medium text-gray-800">Phone:</strong><br>
-                                <a href="tel:+234XXXXXXXXXX" class="text-primary-600 hover:text-primary-800">+234 8030564012</a>
-                            </p>
-                            <p>
-                                <strong class="font-medium text-gray-800">Email:</strong><br>
-                                <a href="mailto:info@sitename.com" class="text-primary-600 hover:text-primary-800">abdulazizabubakartma2030@gmail.com</a>
-                            </p>
-                        </div>
-
-                        <h3 class="text-2xl font-semibold text-gray-900 mt-10 mb-4 fade-in delay-6">Follow Us</h3>
-                        <div class="flex space-x-5 text-gray-500 fade-in delay-7">
-                            <a href="#" class="hover:text-primary-600 transition duration-150 ease-in-out" aria-label="Facebook">
-                                <i class="fab fa-facebook-f fa-lg"></i>
-                            </a>
-                            <a href="#" class="hover:text-primary-600 transition duration-150 ease-in-out" aria-label="Twitter">
-                                <i class="fab fa-twitter fa-lg"></i>
-                            </a>
-                            <a href="#" class="hover:text-primary-600 transition duration-150 ease-in-out" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in fa-lg"></i>
-                            </a>
-                            <a href="#" class="hover:text-primary-600 transition duration-150 ease-in-out" aria-label="Instagram">
-                                <i class="fab fa-instagram fa-lg"></i>
-                            </a>
-                             <a href="#" class="hover:text-primary-600 transition duration-150 ease-in-out" aria-label="GitHub">
-                                <i class="fab fa-github fa-lg"></i>
-                            </a>
+                <div class="mt-12 grid lg:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Support Information</h3>
+                            <div class="mt-4 space-y-2 text-gray-600">
+                                <p>Email: <a href="mailto:support@nintrust.gov.ng"
+                                        class="brand-color hover:underline">nintrust001@gmail.com</a></p>
+                                <p>Phone: <a href="tel:+234700NINTRUST"
+                                        class="brand-color hover:underline">XX-XXX-XXXX</a></p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="bg-white p-8 rounded-xl shadow-lg fade-in delay-8">
-                        <form action="#" method="POST">
-                            <div class="grid grid-cols-1 gap-y-6">
-                                <div>
-                                    <label for="contact-name" class="block text-sm font-medium text-gray-700">Full Name</label>
-                                    <div class="mt-1">
-                                        <input type="text" name="name" id="contact-name" autocomplete="name" required
-                                               class="block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:border-primary-500 focus:ring-primary-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="contact-email" class="block text-sm font-medium text-gray-700">Email Address</label>
-                                    <div class="mt-1">
-                                        <input type="email" name="email" id="contact-email" autocomplete="email" required
-                                               class="block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:border-primary-500 focus:ring-primary-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="contact-subject" class="block text-sm font-medium text-gray-700">Subject / Complaint Type</label>
-                                    <div class="mt-1">
-                                        <input type="text" name="subject" id="contact-subject" required
-                                               class="block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:border-primary-500 focus:ring-primary-500">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="contact-message" class="block text-sm font-medium text-gray-700">Message / Complaint Details</label>
-                                    <div class="mt-1">
-                                        <textarea id="contact-message" name="message" rows="4" required
-                                                  class="block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:border-primary-500 focus:ring-primary-500"></textarea>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button type="submit"
-                                            class="w-full inline-flex justify-center rounded-lg border border-transparent bg-primary-500 px-6 py-3 text-base font-medium text-white shadow-md hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition duration-150 ease-in-out">
-                                        Submit Message / Complaint
-                                    </button>
-                                </div>
+                    <!-- Contact Form -->
+                    <div class="bg-gray-50 p-8 rounded-xl">
+                        <form class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                <input type="text" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3">
                             </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Email Address</label>
+                                <input type="email" required
+                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700">Message</label>
+                                <textarea rows="4" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm p-3"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full brand-bg text-white py-3 rounded-md font-medium hover:opacity-90 transition-all">
+                                Send Message
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -326,73 +263,49 @@
         </section>
     </main>
 
-    <footer class="bg-primary-700 text-gray-100">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-                <div class="space-y-8 xl:col-span-1">
-                    <svg class="h-10 w-auto text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-                     </svg>
-                    <p class="text-gray-300 text-base">
-                        Making the digital world better, one project at a time.
-                    </p>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <span class="sr-only">Facebook</span>
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"></svg>
-                        </a>
-                        <a href="#" class="text-gray-300 hover:text-white">
-                            <span class="sr-only">Twitter</span>
-                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"></svg>
-                        </a>
-                        </div>
-                </div>
-                <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-                    <div class="md:grid md:grid-cols-2 md:gap-8">
-                        <div>
-                            <h3 class="text-sm font-semibold text-primary-100 tracking-wider uppercase">Solutions</h3>
-                            <ul role="list" class="mt-4 space-y-4">
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">NIN Services</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">BVN Services</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Enrollment</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Business Registration</a></li>
-                            </ul>
-                        </div>
-                        <div class="mt-12 md:mt-0">
-                            <h3 class="text-sm font-semibold text-primary-100 tracking-wider uppercase">Company</h3>
-                            <ul role="list" class="mt-4 space-y-4">
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">About</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Blog</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Careers</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                     <div class="md:grid md:grid-cols-2 md:gap-8">
-                        <div>
-                            <h3 class="text-sm font-semibold text-primary-100 tracking-wider uppercase">Legal</h3>
-                            <ul role="list" class="mt-4 space-y-4">
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Privacy</a></li>
-                                <li><a href="#" class="text-base text-gray-300 hover:text-white">Terms</a></li>
-                            </ul>
-                        </div>
-                    </div>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <img src="{{ asset('assets/images/img/logo2.png') }}" alt="NIN TRUST Logo" class="h-16 mx-auto">
+                <p class="mt-4 text-sm">
+                    National Identity Verification and Trust Services
+                </p>
+                <div class="mt-6 flex justify-center space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-[#082851] transition-colors">
+                        <span class="sr-only">Twitter</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-[#082851] transition-colors">
+                        <span class="sr-only">GitHub</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
                 </div>
             </div>
-            <div class="mt-12 border-t border-primary-600 pt-8">
-                <p class="text-base text-gray-300 xl:text-center">&copy; {{ date('Y') }} AA Taska, Inc. All rights reserved.</p>
+            <div class="mt-8 border-t border-gray-700 pt-8 text-center">
+                <p class="text-xs text-gray-500">
+                    &copy; {{ date('Y') }} NIN TRUST. All rights reserved.
+                </p>
+                <p class="text-xs text-gray-500 mt-1">
+                    Identity verification partner
+                </p>
             </div>
         </div>
     </footer>
 
     <script>
         window.onload = function() {
-            const loaderWrapper = document.getElementById('loader-wrapper');
-            if (loaderWrapper) {
-                loaderWrapper.classList.add('hidden');
-            }
+            document.getElementById('loader-wrapper').classList.add('hidden');
         };
     </script>
 
 </body>
+
 </html>
