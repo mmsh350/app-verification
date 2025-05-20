@@ -540,10 +540,10 @@ class VerificationController extends Controller
     {
         try {
 
-            $data = ['idNumber' => $trackingId, "consent" => true];
+            $data = ['trackingId' => $trackingId];
 
-            $url = env('BASE_API_URL') . '/api/ipestatus/index.php';
-            $token = env('VERIFY_BEARER');
+            $url = env('BASE_URL_VERIFY_USER') . 'api/v1/ipe-status';
+            $token = env('VERIFY_USER_TOKEN');
 
             $headers = [
                 'Accept: application/json, text/plain, */*',
@@ -575,15 +575,22 @@ class VerificationController extends Controller
             $response = json_decode($response, true);
 
             if (isset($response['status']) && $response['status'] === true) {
+                $data = $response['response'];
 
-                IpeRequest::where('trackingId', $trackingId)
-                    ->update(['reply' => $response['reply'] ?? '']);
+                if ($data['resp_code'] === '200') {
 
-                return redirect()->route('user.ipe')
-                    ->with('success', 'IPE request is successful, check the reply section');
+                    IpeRequest::where('trackingId', $trackingId)
+                        ->update(['reply' => $data['reply'] ?? '']);
+
+                    return redirect()->route('user.ipe')
+                        ->with('success', 'IPE request is successful, check the reply section');
+                } else {
+                    return redirect()->route('user.ipe')
+                        ->with('error',  $response['message']);
+                }
             } elseif (isset($response['status']) && $response['status'] === false) {
                 return redirect()->route('user.ipe')
-                    ->with('error',  $response['message'] . ' - Please dont resend it might still be processing');
+                    ->with('error',  $response['message']);
             } else {
                 return redirect()->route('user.ipe')
                     ->with('error', 'Unexpected error occurred');
