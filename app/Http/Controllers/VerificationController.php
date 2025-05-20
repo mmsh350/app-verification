@@ -14,6 +14,7 @@ use App\Models\Wallet;
 use App\Services\TransactionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 class VerificationController extends Controller
 {
@@ -507,7 +508,7 @@ class VerificationController extends Controller
 
                 $response = json_decode($response, true);
 
-                if (isset($response['respCode']) && $response['respCode'] == '000') {
+                if (isset($response['status']) && $response['status'] === true) {
 
                     $this->processResponseDataIpe($loginUserId, $request->input('trackingId'));
 
@@ -522,9 +523,6 @@ class VerificationController extends Controller
 
                     return redirect()->route('user.ipe')
                         ->with('success', 'IPE request is successful');
-                } else if ($response['respCode'] == '103') {
-                    return redirect()->route('user.ipe')
-                        ->with('error', 'IPE request is not successful');
                 } else {
                     return redirect()->route('user.ipe')
                         ->with('error', 'IPE request is not successful');
@@ -540,10 +538,10 @@ class VerificationController extends Controller
     {
         try {
 
-            $data = ['idNumber' => $trackingId, "consent" => true];
+            $data = ['trackingId' => $trackingId];
 
-            $url = env('BASE_API_URL') . '/api/ipestatus/index.php';
-            $token = env('VERIFY_BEARER');
+            $url = env('BASE_URL_VERIFY_USER') . 'api/v1/ipe-status';
+            $token = env('VERIFY_USER_TOKEN');
 
             $headers = [
                 'Accept: application/json, text/plain, */*',
@@ -575,15 +573,58 @@ class VerificationController extends Controller
             $response = json_decode($response, true);
 
             if (isset($response['status']) && $response['status'] === true) {
+                $data = $response['response'];
 
-                IpeRequest::where('trackingId', $trackingId)
-                    ->update(['reply' => $response['reply'] ?? '']);
+                if ($data['resp_code'] === '200') {
 
-                return redirect()->route('user.ipe')
-                    ->with('success', 'IPE request is successful, check the reply section');
+                    IpeRequest::where('trackingId', $trackingId)
+                        ->update(['reply' => $data['reply'] ?? '']);
+
+                    return redirect()->route('user.ipe')
+                        ->with('success', 'IPE request is successful, check the reply section');
+                } elseif ($data['resp_code'] === '400') {
+
+                    //process refund & NIN Services Fee
+                    $ServiceFee = 0;
+
+                    $ServiceFee = Service::where('service_code', '112')
+                        ->where('status', 'enabled')
+                        ->first();
+
+                    if (!$ServiceFee)
+                        return redirect()->route('user.ipe')
+                            ->with('error', 'Sorry Action not Allowed !');
+
+                    $ServiceFee = $ServiceFee->amount;
+
+                    $wallet = Wallet::where('user_id',   $this->loginId)->first();
+
+                    $balance = $wallet->balance + $ServiceFee;
+
+                    // Check if already refunded
+                    $refunded = IpeRequest::where('trackingId', $trackingId)
+                        ->whereNull('refunded_at')
+                        ->first();
+
+                    if ($refunded) {
+                        Wallet::where('user_id', $this->loginId)
+                            ->update(['balance' => $balance]);
+
+                        IpeRequest::where('trackingId', $trackingId)
+                            ->update(['refunded_at' => Carbon::now(), 'reply' => 'Refunded']);
+
+                        $this->transactionService->createTransaction($this->loginId, $ServiceFee, 'IPE Refund', "IPE Refund for Tracking ID: {$trackingId}",  'Wallet', 'Approved');
+                    }
+
+                    return redirect()->route('user.ipe')
+                        ->with('error',  $response['message']);
+                } else {
+                    return redirect()->route('user.ipe')
+                        ->with('error',  $response['message']);
+                }
             } elseif (isset($response['status']) && $response['status'] === false) {
                 return redirect()->route('user.ipe')
-                    ->with('error',  $response['message'] . ' - Please dont resend it might still be processing');
+                    ->with('error',  $response['message']);
             } else {
                 return redirect()->route('user.ipe')
                     ->with('error', 'Unexpected error occurred');
@@ -594,7 +635,6 @@ class VerificationController extends Controller
                 ->with('error', 'An error occurred while making the API request');
         }
     }
-
     public function bvnRetrieve(Request $request)
     {
 
