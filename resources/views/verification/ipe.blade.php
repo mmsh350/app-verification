@@ -64,7 +64,8 @@
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-1 mb-2">
 
                                                 <small class="text-danger">
-                                                    Our IPE request process is fully automated. You can track the status of your request using the 'Check Status' button
+                                                    Our IPE request process is fully automated. You can track the status of
+                                                    your request using the 'Check Status' button
                                                 </small><br />
 
                                                 <p class="fw-bold mt-2"> Service Fee:
@@ -102,10 +103,12 @@
                                                                 <td>{{ $data->trackingId }}</td>
                                                                 <td>{{ $data->reply }}</td>
                                                                 <td class="text-center">
-                                                                    <a href="{{ route('user.ipeStatus', $data->trackingId) }}"
-                                                                        class="btn btn-sm btn-primary">
-                                                                        Check Status
-                                                                    </a>
+                                                                    @if (is_null($data->reply))
+                                                                        <a href="{{ route('user.ipeStatus', [$data->trackingId]) }}"
+                                                                            class="btn btn-sm btn-primary">
+                                                                            Check Status
+                                                                        </a>
+                                                                    @endif
                                                                 </td>
                                                             </tr>
                                                             @php $i++ @endphp
