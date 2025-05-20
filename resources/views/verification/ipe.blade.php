@@ -102,15 +102,12 @@
                                                                 <td>{{ $data->trackingId }}</td>
                                                                 <td>{{ $data->reply }}</td>
                                                                 <td class="text-center">
-                                                                    @if (is_null($data->reply))
+                                                                    @if (is_null($data->reply) && is_null($data->refunded_at))
                                                                         <a href="{{ route('user.ipeStatus', [$data->trackingId]) }}"
                                                                             class="btn btn-sm btn-primary">
                                                                             Check Status
                                                                         </a>
                                                                     @endif
-
-
-
                                                                 </td>
                                                             </tr>
                                                             @php $i++ @endphp
