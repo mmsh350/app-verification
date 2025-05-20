@@ -26,7 +26,7 @@
     <style>
         /* Sidebar base styling */
         .sidebar {
-            background-color: #0db4bd;
+            background-color: #355839;
             color: #ecf0f1;
             font-family: Arial, sans-serif;
             /* height: 100vh; */
@@ -51,12 +51,12 @@
         }
 
         .sidebar .nav-link:hover {
-            background-color: #09848a;
+            background-color: #2e4d31;
             /* color: #3498db; */
         }
 
         .sidebar .nav-link.active {
-            background-color: #09848a;
+            background-color: #355839;
             color: #fff;
         }
 
@@ -80,7 +80,7 @@
         .sidebar .sub-menu {
             display: none;
             padding-left: 2rem;
-            background-color: #09848a;
+            background-color: #355839;
         }
 
         .sidebar .sub-menu.show {
