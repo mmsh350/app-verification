@@ -83,6 +83,10 @@ Route::middleware(['auth', 'user.active'])->group(function () {
             Route::get('/standardSlip/{id}', [VerificationController::class, 'standardSlip'])->name("standardSlip");
             Route::get('/premiumSlip/{id}', [VerificationController::class, 'premiumSlip'])->name("premiumSlip");
 
+            //NIN Services
+            Route::get('/nin-services', [ServicesController::class, 'ninServices'])->name('nin.services');
+            Route::post('/nin-services/request', [ServicesController::class, 'requestNinService'])->name('nin.services.request');
+
             //Whatsapp API Support--------------------------------------------------------------------------
             Route::get('/support', function () {
                 $phoneNumber = env('phoneNumber');
@@ -108,4 +112,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'u
     Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
     Route::get('/services/edit/{id}', [ServicesController::class, 'edit'])->name('services.edit');
     Route::put('/services/update/{id}', [ServicesController::class, 'update'])->name('services.update');
+
+    //NIN Services
+    Route::get('/nin-services', [ServicesController::class, 'ninServices'])->name('nin.services');
+    Route::post('/nin-services/request', [ServicesController::class, 'requestNinService'])->name('nin.services.request');
 });

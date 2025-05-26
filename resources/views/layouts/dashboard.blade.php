@@ -26,7 +26,7 @@
     <style>
         /* Sidebar base styling */
         .sidebar {
-            background-color:  #4d0d8c;
+            background-color: #4d0d8c;
             color: #ecf0f1;
             font-family: Arial, sans-serif;
             /* height: 100vh; */
@@ -80,7 +80,7 @@
         .sidebar .sub-menu {
             display: none;
             padding-left: 2rem;
-            background-color: #a74dff;
+            /* background-color: #a74dff; */
         }
 
         .sidebar .sub-menu.show {

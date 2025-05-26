@@ -82,6 +82,14 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('user.nin.services') }}">
+                <i class="mdi mdi-autorenew menu-icon"></i>
+
+                <span class="menu-title">NIN Services</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" href="{{ route('user.support') }}">
                 <i class="mdi mdi-lifebuoy menu-icon"></i>
                 <span class="menu-title">Support</span>
@@ -99,6 +107,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.services.index') }}">
                             <i class="mdi mdi-pencil menu-icon"></i> Services
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.services.index') }}">
+                            <i class="mdi mdi-autorenew menu-icon"></i> NIN Services
                         </a>
                     </li>
                 </ul>
