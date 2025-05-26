@@ -21,4 +21,14 @@ class NinService extends Model
         'status',
         'reason'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function transactions()
+    {
+        return $this->belongsTo(Transaction::class, 'tnx_id');
+    }
 }

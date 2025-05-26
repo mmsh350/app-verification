@@ -28,4 +28,9 @@ class Transaction extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function ninService()
+    {
+        return $this->hasOne(NinService::class, 'tnx_id');
+    }
 }

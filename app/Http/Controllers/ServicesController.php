@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Enrollment;
 use App\Models\NinService;
 use App\Models\Service;
 use App\Models\Wallet;
@@ -19,19 +18,6 @@ class ServicesController extends Controller
     {
         $this->transactionService = $transactionService;
         $this->loginId = auth()->user()->id;
-    }
-
-    public function ninServices()
-    {
-
-        $services = Service::where('type', 'nin_services')->get();
-
-        $ninServices = NinService::where('user_id',  $this->loginId)
-            ->orderBy('id', 'desc')
-            ->paginate(5);
-
-
-        return view('nin-services', compact('services',  'ninServices'));
     }
 
     public function index(Request $request)
@@ -74,7 +60,18 @@ class ServicesController extends Controller
         return redirect()->route('admin.services.index')->with('success', 'Service Updated Successfully!');
     }
 
+    public function ninServices()
+    {
 
+        $services = Service::where('type', 'nin_services')->get();
+
+        $ninServices = NinService::where('user_id',  $this->loginId)
+            ->orderBy('id', 'desc')
+            ->paginate(5);
+
+
+        return view('nin-services', compact('services',  'ninServices'));
+    }
     public function requestNinService(Request $request)
     {
         $rules = [
@@ -160,5 +157,144 @@ class ServicesController extends Controller
 
             return redirect()->back()->with('success', 'NIN Service Request was successfully');
         }
+    }
+    public function ninServicesList(Request $request)
+    {
+
+        // Services
+        $pending = NinService::whereIn('status', ['pending', 'processing'])
+            ->count();
+
+        $resolved = NinService::where('status', 'resolved')
+            ->count();
+
+        $rejected = NinService::where('status', 'rejected')
+            ->count();
+
+        $total_request = NinService::count();
+
+        $query = NinService::with(['user', 'transactions']); // Load related data
+
+        if ($request->filled('search')) { // Check if search input is provided
+            $searchTerm = $request->search;
+
+            $query->where(function ($q) use ($searchTerm) {
+                $q->where('refno', 'like', "%{$searchTerm}%") // Search in Reference No.
+                    ->orWhere('nin', 'like', "%{$searchTerm}%") // Search in BMS ID
+                    ->orWhere('trackingId', 'like', "%{$searchTerm}%") // Search in BMS ID
+                    ->orWhere('status', 'like', "%{$searchTerm}%") // Search in Status
+                    ->orWhereHas('user', function ($subQuery) use ($searchTerm) { // Search in User fields
+                        $subQuery->where('name', 'like', "%{$searchTerm}%");
+                    });
+            });
+        }
+
+        // Check if date_from and date_to are provided and filter accordingly
+        if ($dateFrom = request('date_from')) {
+            $query->whereDate('created_at', '>=', $dateFrom); // Adjust 'created_at' to your date field
+        }
+
+        if ($dateTo = request('date_to')) {
+            $query->whereDate('created_at', '<=', $dateTo); // Adjust 'created_at' to your date field
+        }
+
+        $nin_services = $query
+            ->orderByRaw("
+                CASE
+                    WHEN status = 'pending' THEN 1
+                    WHEN status = 'processing' THEN 2
+                    ELSE 3
+                END
+            ") // Prioritize 'pending' first, then 'processing', and others last
+            ->orderByDesc('id') // Sort by latest record within the same priority
+            ->paginate(10);
+
+
+        $request_type = 'nin-services';
+
+        return view('nin-services-list', compact(
+            'pending',
+            'resolved',
+            'rejected',
+            'total_request',
+            'nin_services',
+            'request_type'
+        ));
+    }
+    public function showRequests($request_id, $type, $requests = null)
+    {
+
+        switch ($type) {
+            case 'bvn-enrollment':
+
+                break;
+            case 'bvn-modification':
+
+                break;
+            case 'upgrade':
+
+                break;
+
+            case 'nin-services':
+                $requests = NinService::with(['user', 'transactions'])->findOrFail($request_id);
+                $request_type = 'nin-services';
+                break;
+
+            case 'vnin-to-nibss':
+
+                break;
+
+            default:
+                $requests = NinService::with(['user', 'transactions'])->findOrFail($request_id);
+                $request_type = 'nin-services';
+        }
+
+        if (strtolower($requests->status) == 'rejected') {
+            abort(404, 'Kindly Submit a new request');
+        }
+
+        return view(
+            'view-request',
+            compact(
+                'requests',
+                'request_type'
+            )
+        );
+    }
+    public function updateRequestStatus(Request $request, $id, $type)
+    {
+        $request->validate([
+            'status' => 'required|string',
+            'comment' => 'required|string',
+        ]);
+
+        $requestDetails = NinService::findOrFail($id);
+        $route = 'admin.nin.services.list';
+        $status = $request->status;
+
+
+        $requestDetails->status = $status;
+        $requestDetails->reason = $request->comment;
+
+
+        if ($request->status === 'rejected') {
+
+            $refundAmount = $request->refundAmount;
+
+            $wallet = Wallet::where('user_id', $requestDetails->user_id)->first();
+
+            $balance = $wallet->balance + $refundAmount;
+
+            Wallet::where('user_id', $requestDetails->user_id)
+                ->update(['balance' => $balance]);
+
+            $serviceDesc = 'Wallet credited with a Request fee of ₦' . number_format($refundAmount, 2);
+
+            $this->transactionService->createTransaction($this->loginId, $refundAmount, 'NIN Service Refund', $serviceDesc,  'Wallet', 'Approved');
+        }
+
+        $requestDetails->save();
+
+        return redirect()->route($route)->with('success', 'Request status updated successfully.');
     }
 }

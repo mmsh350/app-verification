@@ -114,6 +114,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'u
     Route::put('/services/update/{id}', [ServicesController::class, 'update'])->name('services.update');
 
     //NIN Services
-    Route::get('/nin-services', [ServicesController::class, 'ninServices'])->name('nin.services');
-    Route::post('/nin-services/request', [ServicesController::class, 'requestNinService'])->name('nin.services.request');
+    Route::get('/nin-services', [ServicesController::class, 'ninServicesList'])->name('nin.services.list');
+    Route::post('/requests/{id}/{type}/update-status', [ServicesController::class, 'updateRequestStatus'])->name('update-request-status');
+    Route::get('/view-request/{id}/{type}/edit', [ServicesController::class, 'showRequests'])->name('view-request');
 });

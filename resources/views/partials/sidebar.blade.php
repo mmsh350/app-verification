@@ -111,7 +111,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.services.index') }}">
+                        <a class="nav-link" href="{{ route('admin.nin.services.list') }}">
                             <i class="mdi mdi-autorenew menu-icon"></i> NIN Services
                         </a>
                     </li>
