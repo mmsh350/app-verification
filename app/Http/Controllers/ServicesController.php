@@ -290,7 +290,7 @@ class ServicesController extends Controller
 
             $serviceDesc = 'Wallet credited with a Request fee of ₦' . number_format($refundAmount, 2);
 
-            $this->transactionService->createTransaction($this->loginId, $refundAmount, 'NIN Service Refund', $serviceDesc,  'Wallet', 'Approved');
+            $this->transactionService->createTransaction($requestDetails->user_id, $refundAmount, 'NIN Service Refund', $serviceDesc,  'Wallet', 'Approved');
         }
 
         $requestDetails->save();
